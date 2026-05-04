@@ -1,0 +1,380 @@
+@media screen and (max-width:1748px) {
+   :root{
+      --height-header:50px
+   }
+   /* home */
+   /* icon Tunk */
+   .tunk-icon{
+      height: 30px;
+      width: 30px;
+   }
+   /* titulo 1 */
+   .parte-titulo{
+      font-size: 25px;
+   }
+   /* titulo 2 */
+   .parte-segundo-titulos{
+      width: 80%;
+   }
+   .parte-segundo-titulo{
+      font-size: 100px;
+   } 
+   /* carousel del libro */
+   .carousel-track {
+      gap: 0px;
+   }
+   /* libros */
+   .libro-item{
+      width: 200px;
+      min-height: 300px;
+      padding: 15px 10px;
+   }
+   /* imagen de libro */
+   .libro-item img{
+      width: 150px;
+      height: 200px;
+   }
+   /* titulo de libro */
+   .libro-item h2{
+      font-size: 16px;
+   }
+   /* autor de libro */
+   .libro-item h3{
+      font-size: 12px;
+   }
+   /* precio de libro */
+   .libro-item p{
+      font-size: 20px;
+   }
+   /* categorias */
+   /* categoria titulo */
+   .categoria-titulo > h1 {
+      font-size: 150px !important;
+  }
+  .categoria-titulo>p{
+      font-size: 50px !important;
+   }
+   /* main libros de categoria */
+   .categoria-libros{
+      padding: 2rem 10px !important;
+   } 
+   /* icon de mi favorito */
+   .bx-heart-circle{
+      right: 10px !important;
+   }
+   /* icon pdf */
+   .etiqueta-pdf{
+    left: -20px !important;
+   }
+   /* iniciar sesion */
+   /* form de iniciar sesion */
+   .form-iniciar>form{
+      min-height: 300px;
+      padding: 30px 20px;
+   }
+   /* calendario */
+   .react-datepicker-popper {
+      height: 200px;
+      overflow-y: scroll;
+    }
+
+   input,select{
+      padding: 8px !important;
+      margin: 5px 0 !important;
+   }
+   /* icon hidden de form iniciar sesion */
+   .form-registro>.password-input-container>.bx {
+      top: 30%;
+   }
+   /* mis datos */
+   /* main */
+   .profile-container{
+      max-height: none !important;
+      max-width: 800px !important;
+   }
+   /* editar-informacion */
+   /* main */
+   .profile-content{
+      height: 500px;
+   }
+   /* titulo */
+   .editar-informacion h1{
+      display: none;
+      margin-bottom: 2rem !important;
+   }
+   /* form */
+   .editar-form{
+      gap: 0.5rem !important;
+   }
+   /* cambiar contraseña */
+   /* btn siguiente */
+
+   /* mis libros */
+   /* libros */
+   /* btn eliminar */
+   .mis-libros-container .btn-editar,.mis-libros-container .btn-eliminar,.mis-libros-container .btn-disabled{
+      width: 50px !important;
+      padding: 5px !important;
+      font-size: 10px;
+      margin: 0 5px;
+      border-radius: 3px;
+   }
+}
+/* Diseño responsive */
+@media (max-width:1000px){
+  main{
+    min-height: 50vh !important;
+  }
+  /* subir libros */
+  /* main */
+  .subir-libro-main{
+    padding: 0 !important;
+  }
+  .subir-libro-form {
+    border-radius: 0 !important;
+    height: 100% !important;
+    width: 100% !important;
+  }
+  .profile-container{
+    max-width: 100vw !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+  }
+}
+/* responsive */
+@media (max-width: 850px) {
+  /* menu hamburger */
+  /* icon tunk */
+  .tunk-icon{
+    width: 1.5rem !important;
+    height: 1.5rem !important;
+  }
+  .bx-menu {
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+      text-align: center;
+    font-size: 30px !important;
+  }
+
+  .menu {
+    display: none !important;
+    flex-direction: column !important;
+    background-color: var(--bg-color-default) !important;
+    position: absolute !important;
+    top: 60px !important;
+    left: 10px !important;
+    width: 200px !important;
+    /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); */
+    z-index: 10 !important;
+  }
+
+  .menu.open {
+    display: flex !important;
+    background: var(--bg-color-default) !important;
+    color: var(--bg-color-main) !important;
+    overflow-y: scroll !important;
+    height: 200px !important;
+  }
+
+  .menu-item {
+    padding: 10px !important;
+  }
+
+  .dropdown {
+    position: static !important;
+    background-color: var(--bg-color-default) !important;
+    box-shadow: none !important;
+  }
+
+  /* titulo home */
+  .parte-primero{
+    width: auto !important;
+  }
+  .titulo{
+    font-size: 50px !important;
+  }
+  .parte-primero{
+    min-height: 50vh !important;
+  }
+  /* titulo desplazamiento */
+  .titulo-desplazamiento{
+    font-size: 1rem !important;
+  }
+  /* parte segunda */
+  .parte-segunda{
+    min-height: 100vh !important;
+  }
+  .parte-segundo-titulos{
+    width: 90% !important;
+  }
+  .parte-segundo-titulo{
+    font-size: 50px !important;
+  }
+  /* carousel */
+  .carousel-slide{
+   width: 180px;
+  }
+  /* main */
+  main{
+    min-height: 50vh !important;
+  }
+  /* categoria */
+  /* categoria titulo */
+  .categoria-titulo{
+    min-height: 50vh !important;
+  }
+  .categoria-titulo>h1{
+    font-size: 60px !important;
+  }
+  .categoria-titulo>hr{
+    display: none;
+  }
+  .categoria-titulo>p{
+    font-size: 20px !important;
+  }
+  /* categoria libros y filtro */
+  .categoria-libros{
+    gap: 10px !important;
+    padding: 20px 0 !important;
+  }
+  /* filtro categoria */
+  aside h3{
+    font-size: 15px !important;
+  }
+  aside label{
+    font-size: 12px !important;
+  }
+  svg{
+    width: 15px !important;
+    height: 15px !important;
+  }
+  /* categoria libros */
+  .categoria-libro{
+    width: 180px !important;
+  }
+  .libro-item{
+    width: 150px !important;
+    min-height: 0 !important;
+  }
+  .libro-item img{
+    width: 80px !important;
+    height: 100px !important;
+  }
+   .etiqueta-pdf{
+    left: -10px !important;
+    font-size: 10px !important;
+   }
+  /* contenido */
+  .contenido-container{
+    min-height: 50vh !important;
+  }
+  /* form iniciar */
+  .form-iniciar>form{
+    width: 300px !important;
+  }
+  /* informacion autor */
+  /* parte main */
+  .profile-container{
+    margin: 0 !important;
+    border-radius: 0 !important;
+    max-width: 900px !important;
+  }
+  /* aside informacion */
+  .profile-sidebar{
+    width: 150px !important;
+    padding: 10px !important;
+  }
+  .profile-sidebar h2{
+    font-size: 1rem !important;
+    margin-bottom: 5px !important;
+  }
+  /* contenido de informacion */
+  .profile-content{
+    padding: 10px !important;
+  }
+  /* titulo */
+  .info-section h1{
+    font-size: 30px !important;
+  }
+  .info-item{
+    font-size: 10px !important;
+  }
+  /* editar informacion */
+  .editar-form label{
+    font-size: 10px;
+  }
+  .editar-form input, .editar-form select{
+    font-size: 8px !important;
+  }
+  .btns-editar{
+    flex-direction: column !important;
+    gap: 10px !important;
+    justify-content: center !important;
+    align-items: flex-end !important;
+  }
+  .guardar-btn, .convertir-btn{
+    width: auto !important;
+    font-size: 10px !important;
+    padding: 5px !important;
+    min-width: 80px !important;
+  }
+  /* icon hidden */
+  .bx-show, .bx-hide{
+    font-size: 20px;
+    top: 55%;
+  }
+  /* subir libros */
+  /* titluo y imagen */
+  .subir-libro-titulo{
+    flex-direction: column !important;
+    width: 100vw !important;
+  }
+  /* titulo */
+  .subir-libro-titulo-libro{
+    font-size: 20px !important;
+  }
+  .subir-libro-titulo-libro>input{
+    font-size: 1rem;
+  }
+  /* imagen */
+  .subir-libro-form .preview-container{
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+  /* label */
+  .subir-libro-form label{
+    width: 300px !important;
+  }
+  /* admin */
+  .pagina-admin h1{
+      font-size: 2rem !important;
+  }
+  .main-admin{
+      min-height: 100vh !important;
+  }
+  /* editar libros */
+  /* titulo de libros */
+      .libro-item h2 {
+        font-size: 10px;
+    }
+    /* motivo */
+    .motivo-ocultacion{
+      font-size: 8px !important;
+    }
+    .mis-libros-container .btn-editar, .mis-libros-container .btn-eliminar, .mis-libros-container .btn-disabled{
+      font-size: 8px !important;
+      padding: 2px !important;
+    }
+}
+
+@media (max-width:400px) {
+    .btn-volver{
+      top: 5px !important;
+      left: 5px !important;
+    }
+    .btn-volver>.bx-chevron-left{
+      font-size: 30px !important;
+    }
+}

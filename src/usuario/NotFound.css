@@ -1,0 +1,9 @@
+.not-found {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+}
+.not-found h1 {
+  font-weight: lighter;
+  color: var(--color-texto-footer2);
+}

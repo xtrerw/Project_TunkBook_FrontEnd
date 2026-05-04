@@ -1,0 +1,79 @@
+.mis-libros-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+  .libro-item {
+
+    width: 150px;
+    border-radius: 12px;
+    color: var(--color-text-primary);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--bg-color-default);
+
+    perspective: 800px;
+  }
+
+  .libro-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-bottom: 10px;
+
+    transition: 0.4s ease-in-out;
+
+  }
+  /* .libro-item:hover img {
+    transform: rotateY(10deg);
+    box-shadow: -10px 0px 5px 1px var( --color-texto-footer2);
+  } */
+  
+  .libro-item h2 {
+    font-size: 1rem;
+    color: var(--color-text-primary);
+    margin: 10px 0 5px;
+    text-transform: capitalize;
+  }
+  .libro-item h3{
+    color: var(--color-texto-footer);
+    font-weight: lighter;
+    font-size: 0.9rem;
+  }
+  .libro-item p {
+    font-size: 0.8rem;
+    color: var(--color-error-text);
+  }
+  /* libro oculto */
+  .libro-oculto>img,.libro-oculto>h2,.libro-oculto>h3,.libro-oculto>p{
+    opacity: 0.5;
+    filter: grayscale(100%);
+  }
+  .libro-item .ocultar, .libro-item .mostrar{
+    margin-top: 10px;
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    color: var(--bg-color-default);
+    border: 1px solid var(--bg-color-default3);
+    border-radius: 5px;
+  }
+  /* btn ocultar */
+  .libro-item .ocultar {
+    background: var(--color-error-text);
+  }
+  .libro-item .ocultar:hover {
+    background: var(--color-border-error);
+  }
+  /* btn mostrar */
+  .libro-item .mostrar {
+    background: var(--bg-color-main);
+  }
+  .libro-item .mostrar:hover {
+    background: var(--bg-color-main2);
+  }

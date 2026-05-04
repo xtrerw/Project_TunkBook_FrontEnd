@@ -1,0 +1,186 @@
+/* titluo de categoria */
+.categoria-titulo{
+    color: var(--bg-color-default);
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-image: linear-gradient(to right bottom,#0f0c2900, #302b6300);
+}
+.categoria-titulo>h1{
+    font-size: 250px;
+    margin-left: 50px;
+}
+.categoria-titulo>hr{
+    height: 15px;
+    background: var(--bg-color-default);
+}
+.categoria-titulo>p{
+    font-size: 120px;
+    margin-left: 50px;
+}
+/* libros */
+.categoria-libros {
+  display: flex;
+  justify-content: space-around;
+
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem 4rem;
+  box-sizing: border-box;
+  background: var(--bg-color-default);
+  color: var(--bg-color-default4);
+  min-height: 100vh;
+  gap: 3rem;
+}
+
+/* asidebar fitro */
+aside {
+  width: 250px;
+  font-size: 1rem;
+}
+
+aside h2 {
+  /* padding: 8px; */
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
+/* buscador */
+.filtro-buscador-contenedor{
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+/* icon buscador */
+.bx-search-alt{
+    position: absolute;
+    right: 10px;
+
+    font-size: 10px;
+}
+/* filtro estrella y precio */
+.filtro-bloque {
+  margin-bottom: 24px;
+}
+
+.filtro-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  font-weight: bold;
+
+}
+
+.filtro-bloque ul {
+  list-style: none;
+  margin-top: 10px;
+  padding-left: 0;
+}
+
+.filtro-bloque li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.filtro-bloque input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  accent-color: var(--bg-color-default);
+  outline: none;
+}
+.filtro-bloque input[type="checkbox"]:checked::before {
+  background: var(--bg-color-main);
+}
+.filtro-bloque input[type="checkbox"]:focus {
+  box-shadow: none;
+  accent-color: var(--bg-color-main);
+  color: var(--bg-color-main);
+}
+.filtro-bloque label {
+  cursor: pointer;
+  font-size: 15px;
+}
+/* libros */
+.categoria-libros>div {
+  width: 80%;
+  display: flex;
+  /* ajuste linea */
+  flex-wrap: wrap;
+  max-height: 150vh;
+  /* scroll */
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
+.categoria-libro{
+    width: 150px;
+    /* box-shadow: 0 0 8px 1px var(--bg-color-default3); */
+    border-radius: 5px;
+    height: fit-content;
+    margin: 0 10px 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    position: relative;
+}
+.categoria-libro-cantidad{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.categoria-btn-compra{
+    color: var(--bg-color-default4);
+    font-size: 25px;
+    padding: 0;
+    cursor: pointer;
+    margin-bottom: 20px;
+    padding: 5px 10px;
+    border-radius: 10px;
+    transition: 0.3s ease-in-out;
+}
+.categoria-btn-compra:hover{
+    background-image: linear-gradient(to left,var(--bg-color-main),var( --bg-color-main2));
+    color: var(--bg-color-default);
+
+}
+/* icono favorito */
+.bx-heart-circle{
+  position: absolute;
+  right: 40px;
+  bottom: 100px;
+
+  font-size: 50px;
+  color: var(--bg-color-default3);
+  cursor: pointer;
+}
+/* hover */
+.bx-heart-circle:hover{
+  color: var(--color-error-text);
+}
+.favorito-activo{
+  color: var(--color-error-text);
+}
+.error{
+  color: var(--color-error-text);
+}
+.sinError{
+  visibility: hidden;
+}
+/* etiqueta pdf */
+.etiqueta-pdf{
+  position: absolute;
+  left: 10px;
+  top: 0;
+  background: var(--color-error-text);
+  color: var(--bg-color-default);
+  padding: 5px;
+}

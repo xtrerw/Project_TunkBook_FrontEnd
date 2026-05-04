@@ -1,0 +1,127 @@
+/* parte titulo */
+ .parte-titulo{
+    background-image: url("../../img/bg-main.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    font-size: 30px;
+    
+  }
+
+  .parte-primero{
+    width: 50%;
+    min-height: 100vh;
+    padding: 0 100px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    text-align: left;
+  }
+  .titulo{
+    font-size: 3.2em;
+    line-height: 1.1;
+  }
+  .titulo2{
+    font-size: 1.5rem;
+    font-weight: 400;
+    line-height: 1.1;
+    margin: 20px 0;
+  }
+  .btn-comenzar{
+    background-color: var(--bg-color-default4);
+    color: var(--color-text-default);
+    font-weight: 700;
+    border-radius: 50px;
+    width: 50%;
+    padding: 10px 0;
+    margin: 15px 0;
+  }
+  .link-login{
+    font-size: 20px;
+    font-weight: 600;
+  }
+/* parte segunda */
+  .parte-segunda{
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    color: var(--bg-color-default);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    background: var(--bg-color-main8);
+  }
+/* desplazamiento titulo */
+.desplazamiento-wrapper {
+    overflow: hidden;
+    width: 100%;
+    background: var(--des-wrapper-background-gradient);
+    color: var(--des-wrapper-color);
+    padding: 10px 0;
+    position: absolute;
+    top: 0%;
+}
+
+.desplazamiento-texto {
+  display: flex;
+  white-space: nowrap;
+  width: max-content;
+  gap: 10px;
+  font-family: "Lobster", serif;
+  text-shadow: 1px 1px 2px var(--text-color3);
+}
+
+.titulo-desplazamiento {
+  font-size: 2rem;
+  font-weight: bold;
+  white-space: nowrap;
+}
+/*  */
+.parte-segundo-titulos{
+    width: 90%;
+}
+.parte-segundo-titulo{
+    font-size: 30px;
+    text-transform: uppercase;
+    color: var(--bg-color-default2);
+    display: inline-block;
+    white-space: pre;
+}
+/* libros de la página principal */
+.img-libros{
+  width: 300px;
+  height: 400px;
+}
+.carousel-container {
+  overflow: hidden;
+  width: 100%;
+  margin: 30px 0;
+}
+
+.carousel-track {
+  /* display: flex; */
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  gap: 10px;
+  will-change: transform;
+}
+
+.carousel-slide {
+  /* flex: 0 0 auto; */
+  /* width: 250px; */
+  transition: transform 0.3s;
+}
+
+.img-libros {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}

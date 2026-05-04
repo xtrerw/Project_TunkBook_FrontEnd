@@ -1,0 +1,5 @@
+.buscador-componente{
+    grid-area: buscador;
+    
+    width: 50%;
+}

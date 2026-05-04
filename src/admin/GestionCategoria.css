@@ -1,0 +1,93 @@
+/* === Estilos para la gestión de categorías === */
+
+.gestion-categoria-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+.gestion-categoria-container h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+/* Formulario */
+.gestion-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 1.5rem;
+}
+
+.gestion-form input {
+  padding: 8px;
+  border-radius: 4px;
+}
+
+.gestion-form button {
+  background-color: var(--bg-color-main);
+  color: var(--bg-color-default);
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.gestion-form button:hover {
+  background-color: var(--bg-color-main5);
+}
+
+/* Lista de categorías */
+.gestion-categoria-item {
+  padding: 10px;
+  background-color: var(--bg-color-default);
+  margin-bottom: 8px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.gestion-categoria-item button {
+  margin-left: 10px;
+  padding: 4px 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.gestion-categoria-item button:first-of-type {
+  background-color: var(--bg-color-main);
+  color: var(--bg-color-default);
+}
+
+.gestion-categoria-item button:last-of-type {
+  background-color: var(--color-error-text);
+  color: var(--bg-color-default);
+}
+/* hover editar */
+.gestion-categoria-item button:first-of-type:hover {
+  background-color: var(--bg-color-main5);
+  color: var(--bg-color-default);
+}
+/* hover eliminar */
+.gestion-categoria-item button:last-of-type:hover {
+  background-color: var(--color-border-error);
+  color: var(--bg-color-default);
+}
+/* back */
+.bx-chevron-left{
+    font-size: 30px;
+    cursor: pointer;
+}
+/* error */
+.input-error {
+  border: 1px solid var(--color-border-error);
+}
+
+.error-msg {
+  color: var(--color-border-error);
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+}

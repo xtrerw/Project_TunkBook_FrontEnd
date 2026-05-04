@@ -1,0 +1,82 @@
+
+.contenedor-cards {
+    display: grid;
+    grid-template-areas:
+    "buscador"
+    "cards";
+    /* grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); */
+
+    width: 100%;
+    gap: 20px;
+    padding: 20px;
+  }
+  .grid-layout{
+    grid-area: cards;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 1rem;
+  }
+  .card-usuario {
+    background: var(--color-texto-footer3);
+    border: 1px solid var(--color-texto-footer3);
+    border-radius: 12px;
+    padding: 20px;
+    height: 400px;
+    box-shadow: 0 2px 8px var(--color-texto-footer);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .card-usuario h2 {
+    margin: 0 0 10px 0;
+    font-size: 20px;
+  }
+  
+  .card-usuario p {
+    margin: 5px 0;
+  }
+  
+  .card-usuario select,
+  .card-usuario button {
+    margin-top: 10px;
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    background: var(--bg-color-default);
+    color: var(--bg-color-main);
+    border: 1px solid var(--bg-color-default3);
+    border-radius: 5px;
+  }
+  .card-usuario a{
+    width: 100%;
+  }
+  .card-usuario select{
+    font-family: "Anton", serif;
+  }
+  .card-usuario button {
+    background: var(--bg-color-main);
+    color: var(--bg-color-default);
+  }
+  .card-usuario button:hover {
+    background: var(--bg-color-main2);
+    color: var(--bg-color-default);
+  }
+  /* btn eliminar */
+.card-usuario .btn-eliminar {
+    background: var(--color-error-text);
+    color: var(--bg-color-default);
+}
+.card-usuario .btn-eliminar:hover {
+    background: var(--color-border-error);
+    color: var(--bg-color-default);
+}
+/* btn ocultar libros */
+.card-usuario .btn-ocultar {
+    background: var(--color-exito-text);
+    color: var(--bg-color-default);
+}
+.card-usuario .btn-ocultar:hover{
+    background: var(--color-exito-text2);
+    color: var(--bg-color-default);
+}

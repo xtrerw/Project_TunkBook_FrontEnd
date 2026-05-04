@@ -1,0 +1,90 @@
+.subir-libro-main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+}
+.subir-libro-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: fit-content;
+    padding: 40px;
+    background: var(--bg-color-default);
+
+    border-radius: 8px;
+}
+/* Estilos para label del formulario */
+/* .subir-libro-form label,.subir-libro-form div{
+    width: 500px;
+} */
+/* inputs */
+.subir-libro-form input,.subir-libro-form select{
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid var(--color-texto-footer2);
+}
+.subir-libro-form input:focus,.subir-libro-form select:focus{
+    border: none;
+    box-shadow: none;
+    border-bottom: 2px solid var(--bg-color-main);
+}
+/* parte titulo y img */
+.subir-libro-titulo{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+/* img */
+.subir-libro-form .preview-container {
+    background: var(--bg-color-default);
+    width: max-content;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+}
+.preview-container>img {
+    width: 200px;
+    height: 200px;
+    opacity: 0.5;
+}
+/* libro titulo */
+.subir-libro-titulo-libro{
+    font-size: 30px;
+}
+.subir-libro-titulo-libro>input{
+    font-weight: bold;
+    text-transform: capitalize;
+}
+/* fieldset */
+.subir-libro-form fieldset{
+    border: none;
+    background: var(--bg-color-default5);
+    padding: 20px 30px 40px 30px;
+}
+/* precio */
+.input-precio {
+    position: relative;
+}
+/* icon precio */
+.currency-symbol {
+    position: absolute;
+    right: 15px;
+    top: 60%;
+}
+.subir-libro-form>button{
+    background-color: var(--bg-color-main);
+    color: var(--text-color);
+}
+.select-categoria select{
+    padding: 12px;
+    margin: 12px 0;
+    /* border-radius: 8px; */
+    color: var(--color-text-secondary);
+    font-size: 1em;
+}
+.select-categoria option{
+    color: var(--color-text-secondary);
+}

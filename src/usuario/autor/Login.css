@@ -1,0 +1,72 @@
+.form-iniciar{
+    display: flex;
+    justify-self: center;
+}
+
+.form-iniciar button{
+    background-color: var(--bg-color-default4);
+    color: var(--color-text-default);
+    font-weight: 700;
+    border-radius: 50px;
+    width: 100%;
+}
+.buttones{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin: 15px 0;
+}
+.form-iniciar-img{
+    background-image: url("../../img/bg-login.jpg");
+    width: 40vw;
+    height: 30vw;
+    background-size: cover;
+    background-position: center;
+
+    margin: 30px;
+}
+.form-iniciar>form{
+    width: 300px;
+    min-height: 400px;
+    padding: 50px 30px;
+    margin: 20px;
+    box-shadow: 0 -2px 20px var(--color-border-default);
+    color: var(--color-text-primary);
+
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+
+}
+.form-iniciar>form>h2{
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: var(--color-text-primary);
+}
+/* icon de esconder y mostrar en iniciar sesión */
+.form-iniciar label{
+    width: 100%;
+    margin-top: 5px;
+}
+.tipo-usuario{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.form-iniciar .password-input-container>.bx {
+    top: 50%;
+}
+.registro-info{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+}
+
+
+/* icon de registro */
+.form-registro>.password-input-container>.bx {
+    top: 50%;
+}

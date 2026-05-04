@@ -1,0 +1,38 @@
+.mis-libros-container{
+    text-align: center;
+}
+.libro-controles{
+    display: flex;
+    justify-content: space-around;
+}
+/* btn-editar y eliminar */
+.btn-editar,.btn-eliminar,.btn-disabled {
+   min-width: unset;
+   width: 100px;
+   margin: 10px;
+}
+.btn-eliminar {
+    background: var(--color-error-text);
+    color: var(--bg-color-default);
+}
+.btn-eliminar:hover {
+    background: var(--color-border-error);
+    color: var(--bg-color-default);
+}
+/* btn-editar */
+.btn-editar {
+    background: var(--bg-color-main);
+    color: var(--bg-color-default);
+}
+.btn-editar:hover {
+    background: var(--bg-color-main2);
+    color: var(--bg-color-default);
+}
+/* btn de libros ocultados */
+.btn-disabled{
+    background: var(--bg-color-main3);
+    color: var(--bg-color-default);
+    cursor: not-allowed;
+    opacity: 0.5;
+    pointer-events: none;
+}

@@ -1,0 +1,32 @@
+/* Estilo de la fecha nacimiento */
+  /* Estilo del encabezado personalizado del selector de fecha */
+  .custom-header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  }
+  
+  /* Estilo de los desplegables de año y mes */
+  .custom-header select {
+  padding: 4px 8px;
+  font-size: 14px;
+  border: 1px solid var(--color-border-default);
+  border-radius: 4px;
+  margin: 0 4px;
+  width: 60%; /* Ancho fijo para los selects */
+  background: var(--bg-color-default); /* Color de fondo del select */
+  color: var(--color-texto-footer);
+  }
+  
+  .custom-header select:focus{
+    outline: none;
+    border: 1px solid var(--bg-color-main2);
+  }
+  /* Contenedor para mostrar el año y el mes en una misma fila */
+  .custom-header .select-row {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  }

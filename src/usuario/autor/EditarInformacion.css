@@ -1,0 +1,110 @@
+/* Contenedor principal del formulario */
+.editar-informacion {
+  background-color: var(--bg-color-default);
+  border-radius: 10px;
+}
+
+/* Título principal del formulario */
+.editar-informacion h1 {
+  text-align: center;
+  margin-bottom: 5rem;
+  color: var(--bg-color-main);
+}
+
+/* Formulario general */
+/* .editar-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+} */
+
+/* Filas de elementos */
+.form-row, .form-row-full {
+  display: flex;
+  gap: 1rem;
+}
+
+/* Labels del formulario (alineación mejorada) */
+.editar-form label {
+  flex: 1; /* todos ocupan el mismo espacio */
+  display: flex;
+  flex-direction: column;
+  color: var(--bg-color-main);
+  font-weight: normal;
+}
+
+/* Texto del label alineado consistentemente a la izquierda */
+.editar-form label span {
+  text-align: left;
+  margin-bottom: 0.3rem;
+}
+
+/* Inputs y selects del formulario */
+.editar-form input,
+.editar-form select {
+  padding: 0.6rem;
+  border: 1px solid var(--color-border-default);
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  color: var(--color-text-primary);
+  background: var(--bg-color-default);
+  width: 100%; /* Asegura que todos tengan el mismo ancho */
+  box-sizing: border-box;
+  margin-top: 0.3rem;
+}
+
+/* Inputs/select al enfocarse */
+.editar-form input:focus,
+.editar-form select:focus {
+  border-color: var(--bg-color-main);
+  box-shadow: 0 0 5px var(--bg-color-main6);
+  outline: none;
+}
+/* botones */
+.btns-editar{
+  display: flex;
+  justify-content: right;
+  gap: 20px;
+}
+/* Botones */
+.guardar-btn,.convertir-btn {
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+/* Bóton de convertirse */
+.convertir-btn {
+  background-color: var(--color-exito-text);
+  color: var(--bg-color-default);
+}
+.convertir-btn:hover {
+  background-color: var(--color-exito-text2);
+  box-shadow: 0 2px 5px var(--bg-color-main6);
+}
+/* Botón de guardar cambios alineado a la derecha */
+.guardar-btn{
+  float: right;
+  width: 200px;
+  background-color: var(--bg-color-main);
+  color: var(--bg-color-default);
+}
+.guardar-btn:hover {
+  background-color: var(--bg-color-main2);
+  box-shadow: 0 2px 5px var(--bg-color-main6);
+}
+
+/* input de la fecha nacimiento */
+.input-text {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid var(--color-border-default);
+  border-radius: 4px;
+  margin-top: 4px;
+  margin-bottom: 16px;
+}
+
+
