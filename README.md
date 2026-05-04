@@ -8,7 +8,7 @@ Este es el **proyecto frontend** de **TunkBook**, una plataforma web desarrollad
 
 Este frontend consume servicios REST del backend para proporcionar una experiencia interactiva y dinámica para autores, lectores y administradores.
 
-> 🔗 El backend está disponible en otro repositorio: *(agrega aquí el enlace cuando esté disponible)*
+> 🔗 El backend está disponible en otro repositorio: https://github.com/xtrerw/Project_TunkBook_Backend.git
 
 ## 🌟 Funcionalidades Principales
 
