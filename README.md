@@ -14,23 +14,6 @@ Este frontend consume servicios REST del backend para proporcionar una experienc
 
 Este proyecto **aún está en desarrollo activo**. Se están implementando funcionalidades clave y refinando el diseño. Los commits reflejan progreso continuo.
 
-## 🌟 Funcionalidades Principales
-
-### 👤 Usuarios
-
-- ✍️ **Autores** pueden:
-  - Publicar nuevos libros
-  - Gestionar y editar sus libros existentes
-  - Crear comunidades
-  - Realizar pedidos de libros
-
-### 🛠️ Administrador
-
-- 👥 Gestionar usuarios y permisos
-- ❌ Eliminar libros
-- 🗑️ Eliminar categorías
-- ✏️ Modificar categorías existentes
-
 ## 🧱 Tecnologías Utilizadas
 
 - **Framework**: React
