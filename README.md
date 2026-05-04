@@ -10,6 +10,10 @@ Este frontend consume servicios REST del backend para proporcionar una experienc
 
 > 🔗 El backend está disponible en otro repositorio: https://github.com/xtrerw/Project_TunkBook_Backend.git
 
+## ⚠️ Estado del Proyecto
+
+Este proyecto **aún está en desarrollo activo**. Se están implementando funcionalidades clave y refinando el diseño. Los commits reflejan progreso continuo.
+
 ## 🌟 Funcionalidades Principales
 
 ### 👤 Usuarios
