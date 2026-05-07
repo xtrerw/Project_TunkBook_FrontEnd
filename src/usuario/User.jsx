@@ -86,15 +86,25 @@ const User = () => {
             {categorias.map((categoria) => 
                 // Mostrar el dropdown solo para la categoría activa
                 activeCategory === categoria.id && (
-                  <div className="dropdown" key={categoria.id} onMouseLeave={() => setActiveCategory(null)}>
+                  <div className="dropdown" key={categoria.id} 
+                  onMouseLeave={() => setActiveCategory(null)}
+                  >
                     <div className="dropdown-item">
                       {categoria.subCategoriesList.map(subitem => (
-                      <Link key={subitem.id} to={`/${categoria.categoryName}/${subitem.subcategoryName}`}  onClick={() => setMenuOpen(false)}>
+                      <Link key={subitem.id} to={`/${categoria.categoryName}/${subitem.subcategoryName}`} 
+                      onClick={() => setMenuOpen(false)}>
                         {subitem.subcategoryName}
                       </Link>
                     ))}
                     </div>
-                    <div className="dropdown-imagen"></div>
+                    {/* Imagen decorativa del dropdown */}
+                    {categoria.subCategoriesList.map(subitem => (
+                      <div className="dropdown-imagen"
+                        style={{ backgroundImage: `url(http://localhost:8080${subitem.subcategoryImg})` }}
+                        key={subitem.id}
+                      ></div>
+                    ))}
+                    
                   </div>
                 )
             )}

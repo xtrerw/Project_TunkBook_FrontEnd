@@ -200,10 +200,8 @@ button {
   .dropdown-imagen {
     width: 40%;
     height: 300px;
-    background-color: #216ba5;
     background-size: cover;
     background-position: center;
-
     margin: 10px;
   }
   /* para que no impacto border radius */
