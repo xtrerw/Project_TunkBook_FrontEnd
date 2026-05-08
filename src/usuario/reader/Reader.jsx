@@ -124,14 +124,6 @@ useGSAP(() => {
         </div>
       </div>
       <div className='parte-segunda'>
-        <div className="desplazamiento-wrapper">
-          <div className="desplazamiento-texto" ref={desplazamientoTxt}>
-            {titulos.map((titulo, index) => (
-              <span key={index} className="titulo-desplazamiento">{titulo}</span>
-            ))}
-          </div>
-        </div>
-
         {/* titulo */}
         <div className='parte-segundo-titulos'>
           {/* {[...titulo2].map((letra, index) => (
@@ -139,7 +131,6 @@ useGSAP(() => {
           ))} */}
           {/* <span className='parte-segundo-titulo'>Convierte tu historia en el próximo gran libro.</span> */}
         </div>
-        
         {/* libros */}
         <div className="carousel-container">
           <div className="carousel-track" ref={carouselRef}>
@@ -156,6 +147,14 @@ useGSAP(() => {
             ))}
           </div>
         </div>
+      </div>
+       {/* parte de desplazamiento */}
+      <div className="desplazamiento-wrapper">
+          <div className="desplazamiento-texto" ref={desplazamientoTxt}>
+            {titulos.map((titulo, index) => (
+              <span key={index} className="titulo-desplazamiento">{titulo}</span>
+            ))}
+          </div>
       </div>
     </div>
   );
