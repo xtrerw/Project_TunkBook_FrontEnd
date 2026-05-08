@@ -111,7 +111,14 @@ const User = () => {
         </nav>
 
         {/* Botón de login o saludo al usuario */}
-        <div onClick={() => setMenuVisible(false)}>
+        <div 
+        // Al hacer hover en esta sección, se cierra cualquier dropdown abierto
+        onMouseEnter={() => {
+                setActiveCategory(null)
+                // Reiniciar subcategoría activa
+                setActiveSub(null)}}
+              // click, disaparecer el menu
+        onClick={() => setMenuVisible(false)}>
           <button className="dancing-script btn-login">
               {user ? <Link to={'/Author/Modelo de Escribir/Subir Mi Libro Completo'}>Publicar Libros</Link> : <Link to="/login" >Publicar Libros</Link>}
           </button>
