@@ -35,83 +35,83 @@ const User = () => {
         console.error("Error fetching categories:", error);
       });
   }, []);
-
+  // Obtener el usuario actual
   const {user}=useUser();
-  // Categoría activa
+  //  categoría activa para mostrar el dropdown
   const [activeCategory, setActiveCategory] = useState(null);
-  // Determina si el usuario es autor
-  const [isAuthor, setIsAuthor] = useState(false);
   // Estado del menú responsive (abierto/cerrado)
   const [menuOpen, setMenuOpen] = useState(false);
-
+  // Subcategoría activa para mostrar la imagen del dropdown
+  const [activeSub, setActiveSub] = useState(null);
+  // controlar la visibilidad del menú (ocultar en login)
+  const [menuVisible, setMenuVisible] = useState(true);
+  // Obtener la ubicación actual para determinar si estamos en la página de login
   const location=useLocation();
   const isLoginPage = location.pathname === "/login";
 
-  // Verifica si el usuario autenticado es autor
-  useEffect(() => {
-    if (user) {
-      setIsAuthor(user.tipo=== "autor");
-    }
-  }, [user]);
-
   return (
     <>
+    {menuVisible? (
       <header>
         {/* icono de inicio */}
         <div className="tunk-icon-responsive">
-          <Link to="/" onClick={()=>setIsAuthor(false)}>
+          <Link to="/">
             <img src={tunkIcon} className="tunk-icon" />
           </Link> 
-
           {/* Botón de menú para móviles */}
           <i className="bx bx-menu" onClick={() => setMenuOpen(!menuOpen)}>
           </i>
         </div>
-        
-        
+
         {/* Menú principal, dependiendo del tipo de usuario */}
-       <nav className={`menu ${menuOpen ? 'open' : ''}`} >
-            {/* Items del menú: Categorías */}
-            {categorias.map((categoria) => (
-              <div
-                key={categoria.id}
-                className="menu-item"
-                onMouseEnter={() => setActiveCategory(categoria.id)}
-              >
-                {/* Nombre de categoría principal */}
-                <div>{categoria.categoryName}</div>
-              </div>
-            ))}
-            {/* Subcategorías desplegables */}
-            {categorias.map((categoria) => 
-                // Mostrar el dropdown solo para la categoría activa
-                activeCategory === categoria.id && (
-                  <div className="dropdown" key={categoria.id} 
-                  onMouseLeave={() => setActiveCategory(null)}
-                  >
-                    <div className="dropdown-item">
-                      {categoria.subCategoriesList.map(subitem => (
-                      <Link key={subitem.id} to={`/${categoria.categoryName}/${subitem.subcategoryName}`} 
-                      onClick={() => setMenuOpen(false)}>
-                        {subitem.subcategoryName}
-                      </Link>
-                    ))}
-                    </div>
-                    {/* Imagen decorativa del dropdown */}
+        <nav className={`menu ${menuOpen ? 'open' : ''}`} >
+          {/* Items del menú: Categorías */}
+          {categorias.map((categoria) => (
+            <div
+              key={categoria.id}
+              className="menu-item"
+              onMouseEnter={() => {
+                setActiveCategory(categoria.id)
+                // Reiniciar subcategoría activa
+                setActiveSub(null) 
+              }}
+            >
+              {/* Nombre de categoría principal */}
+              <div>{categoria.categoryName}</div>
+            </div>
+          ))}
+          {/* Subcategorías desplegables */}
+          {categorias.map((categoria) => 
+              // Mostrar el dropdown solo para la categoría activa
+              activeCategory === categoria.id && (
+                <div className="dropdown" key={categoria.id} 
+                onMouseLeave={() => setActiveCategory(null)}
+                >
+                  <div className="dropdown-item">
                     {categoria.subCategoriesList.map(subitem => (
-                      <div className="dropdown-imagen"
-                        style={{ backgroundImage: `url(http://localhost:8080${subitem.subcategoryImg})` }}
-                        key={subitem.id}
-                      ></div>
-                    ))}
-                    
+                    <Link key={subitem.id} 
+                    to={`/${categoria.categoryName}/${subitem.subcategoryName}`} 
+                    onMouseEnter={() => setActiveSub(subitem.id)}
+                    onClick={() => setMenuOpen(false)}>
+                      {subitem.subcategoryName}
+                    </Link>
+                  ))}
                   </div>
-                )
-            )}
-          </nav>
+                  {/* Imagen decorativa del dropdown */}
+                  {activeSub? (
+                    <div className="dropdown-imagen"
+                      style={{ backgroundImage: `url(http://localhost:8080${categoria.subCategoriesList.find((s) => s.id === activeSub)?.subcategoryImg})` }}
+                    ></div>
+                  ) : (
+                    <div className="dropdown-imagen" style={{ backgroundImage: 'url("http://localhost:8080/uploads/img/default.png")' }}></div>
+                  )}
+                </div>
+              )
+          )}
+        </nav>
 
         {/* Botón de login o saludo al usuario */}
-        <div>
+        <div onClick={() => setMenuVisible(false)}>
           <button className="dancing-script btn-login">
               {user ? <Link to={'/Author/Modelo de Escribir/Subir Mi Libro Completo'}>Publicar Libros</Link> : <Link to="/login" >Publicar Libros</Link>}
           </button>
@@ -120,7 +120,10 @@ const User = () => {
           </button>
         </div>
        
-      </header>
+      </header>):
+      <Link to="/" onClick={() => setMenuVisible(true)}>
+        <img src={tunkIcon} className="tunk-icon" />
+      </Link>}
 
       <main className="main-content" style={{
           WebkitFilter: activeCategory ? 'blur(5px)' : 'none',

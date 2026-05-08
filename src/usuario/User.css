@@ -171,7 +171,7 @@ button {
 
     width: 100vw;
     z-index: 1000;
-    min-height: 500px;
+    min-height: 400px;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
   }
   /* subcategorías */
@@ -200,8 +200,9 @@ button {
   .dropdown-imagen {
     width: 40%;
     height: 300px;
-    background-size: cover;
     background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
     margin: 10px;
   }
   /* para que no impacto border radius */
