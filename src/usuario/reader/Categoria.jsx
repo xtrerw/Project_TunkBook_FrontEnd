@@ -13,8 +13,10 @@ import { ChevronUp, ChevronDown, Star } from 'lucide-react';
 import { useUser } from '../../context/UserContext'
 import { useNavigate } from 'react-router-dom'
 const Categoria = () => {
+  
   //conseguir las categorias de libros
-  const { categoriaId, subcategoriaId } = useParams();
+  const { categoriaName, subcategoriaName } = useParams();
+  console.log(categoriaName, subcategoriaName)
   //set categoria
   const [categoria, setCategorias] =useState(null)
   //set libros
@@ -55,56 +57,30 @@ const [showFormato, setShowFormato] = useState(true);
     //hasta top en caso clic
     useEffect(() => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, [categoriaId, subcategoriaId]);
+    }, [categoriaName, subcategoriaName]);
 
   //conseguir las categorias desde mango db
   useEffect(()=>{
-    fetch(`http://localhost:8080/categories/${categoriaId}`)
+    fetch(`http://localhost:8080/categories/${categoriaName}/${subcategoriaName}`)
     .then(response=>response.json())
     .then(resulta=>{
-      if (!resulta.categoria || resulta.categoria.length === 0) {
+      if (!resulta.data || resulta.data.length === 0) {
         navigate("/404"); // Redirigir si no hay categoría válida
       } else {
-        setCategorias(resulta.categoria); 
-        setLibros(resulta.libros);
+        setLibros(resulta.data);
   }
     })
     .catch(error => {
       navigate("/NotFound");
     });
-  },[categoriaId])
+  },[categoriaName])
 
   // Reiniciar filtros al cambiar subcategoría
   useEffect(() => {
     setSearchTerm("");
     setSelectedRatings([]);
     setSelectedPrices([]);
-  }, [subcategoriaId]);
-  //funcion para comprar libros
-  // const handleComprar = (libro) => {
-
-  //   fetch("http://localhost:5001/comprar", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       libroId: libro._id,
-  //       userId: user._id,
-  //     }),
-  //   })
-
-  //   .then((response) => {
-  //     if (response.ok) {
-  //       console.log("Compra realizada con éxito");
-  //     } else {
-  //       console.log("Error al realizar la compra");
-  //     }
-  //   })
-  //   .catch((error) => {
-  //     console.error("Error al realizar la compra:", error);
-  //   });
-  // };
+  }, [subcategoriaName]);
 
   //conseguir los formatos
   useEffect(() => {
@@ -152,7 +128,7 @@ useEffect(() => {
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data.libros)) {
-          const ids = data.libros.map((item) => item._id || item.libroID); // asegúrate del formato
+          const ids = data.data.map((item) => item._id || item.libroID); // asegúrate del formato
           setFavoritos(ids);
         }
       })
@@ -229,24 +205,14 @@ useGSAP(() => {
       stagger:0.2
     },"<")
   })
-}, { dependencies: [libros, subcategoriaId]});
+}, { dependencies: [libros, subcategoriaName]});
 
 
   //registro de usuario
-  if (!categoria || !libros) return <Cargando />;
+  if (!libros) return <Cargando />;
 
   return (
     <>
-    {/* <div className='categoria-titulo' ref={tituloRef}>
-      <h1> {
-        categoria.colleccion.includes(subcategoriaId)
-          ? subcategoriaId
-          : null
-      }</h1>
-      <hr />
-      <p>Tu aventura comienza aquí. ¡ Bienvenido a TunkBook !</p>
-    </div> */}
-
     <div style={{
       display:"flex",
       justifyContent:"center"
@@ -384,20 +350,21 @@ useGSAP(() => {
         //filtrar todos los libros que cumple con las condiciones
          .filter(libro =>
             {
-              const tienePDF = librosConFormato[libro._id] === true;
+              const tienePDF = librosConFormato[libro.id] === true;
 
               const coincideFormato =
                 formatoSeleccionado.length === 0 || // se muestra todos sin selecciona
                 (tienePDF && formatoSeleccionado.includes("pdf")) ||
                 (!tienePDF && formatoSeleccionado.includes("no-pdf"));
-
-              //verificar la categoria seleccionado si esta coincide a la categoria de los libros
-              const coincideSubcategoria = !subcategoriaId || libro.categoria.some(cat => cat.colleccion.includes(subcategoriaId));
+                //verificar las categorias y subcategorias de libros si esta coincide a las categorias y subcategorias de url
+              const coincideSubcategoria = libro.subCategoriesList?.some(subcategory => subcategory.subcategoryName === subcategoriaName);
+              if (!coincideSubcategoria) return false; // Si no coincide la categoría o subcategoría, no lo mostramos
               //verificar los texto insertados si esta coincide al nombre de libros,"" es para evitar fallback de undefine
               const coincideBusqueda = 
-              libro.titulo.toLowerCase().includes(searchTerm) || 
-              libro.autorID?.nombre.toLowerCase().includes(searchTerm) || 
-              libro.autorID?.apellido.toLowerCase().includes(searchTerm)
+              libro.bookName.toLowerCase().includes(searchTerm) || 
+              libro.writersList?.some(writer =>
+                writer?.user?.username?.toLowerCase().includes(searchTerm)
+              )
               //verificar las estrellas de fitro si está coincide a la cantidad de estrellas de libros
               const coincideRating =
                 selectedRatings.length === 0 || selectedRatings.some(rating => libro.estrella >= rating && libro.estrella < rating+1);
@@ -406,7 +373,7 @@ useGSAP(() => {
               priceRanges.some((range) =>
                 selectedPrices.includes(range.label) &&
                 libro.precio >= range.min &&
-                libro.precio <= range.max
+                libro.precio <= range.max 
               );
                
               //verificar si esta libro oculto
@@ -414,28 +381,36 @@ useGSAP(() => {
               // Devolver el libro si coincide con todos los filtros y no está oculto 
               if (libroOculto) return false; // Si el libro está oculto, no lo mostramos
 
-              return coincideSubcategoria && coincideBusqueda && coincideRating && coincidePrecio&&coincideFormato;
+              return coincideBusqueda && coincideRating && coincidePrecio&&coincideFormato;
             }
           )
         .map((libro, index) => (
             <div key={index} ref={el => libroRefs.current[index] = el} className='categoria-libro'>
-              <Link to={`/Libros/${libro._id}`} state={{categoriaId, subcategoriaId}} className='libro-item'>
-              {librosConFormato[libro._id] && (
+              <Link to={`/Libros/${libro.id}`} state={{categoriaName, subcategoriaName}} className='libro-item'>
+              {librosConFormato[libro.id] && (
                 <div className="etiqueta-pdf">PDF</div>
               )}
 
-                <img src={`${libro.img}`} alt={libro.titulo} />
-                <h2>{libro.titulo}</h2>
+                <img src={`http://localhost:8080${libro.cover}`} alt={libro.titulo} />
+                {/* mostrar título */}
+                <h2>{libro.bookName}</h2>
+                {/* mostrar autores */}
+                {libro.writersList?.map((writer) => (
+                  <div key={writer.user?.id}>
+                    <h3>{writer.user?.username}</h3>
+                  </div>
+                ))}
+                {/* mostrar estrellas */}
                 <p>
                   {[...Array(5)].map((_, i) => (
                     <i
                       key={i}
-                      className={i < libro.estrella ? "bx bxs-star" : "bx bx-star"}
+                      className={i < libro.stars ? "bx bxs-star" : "bx bx-star"}
                       style={{ color: "#facc15" }}
                     />
                   ))}
                 </p>
-                <h3>{libro.autorID?.nombre} {libro.autorID?.apellido}</h3>
+                
                 {/* <p>{libro.precio} €</p> */}
               </Link>
               <div className='categoria-libro-cantidad'>

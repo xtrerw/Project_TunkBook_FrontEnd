@@ -86,9 +86,12 @@ const User = () => {
                   <div className="dropdown-item">
                     {categoria.subCategoriesList.map(subitem => (
                     <Link key={subitem.id} 
-                    to={`/${categoria.categoryName}/${subitem.subcategoryName}`} 
+                    to={`/${categoria.categoryName}/${encodeURIComponent(subitem.subcategoryName)}`} 
                     onMouseEnter={() => setActiveSub(subitem.id)}
-                    onClick={() => setMenuOpen(false)}>
+                    onClick={() =>{
+                      setMenuOpen(false)
+                      setActiveCategory(null) 
+                    }}>
                       {subitem.subcategoryName}
                     </Link>
                   ))}
@@ -145,7 +148,7 @@ const User = () => {
           <Route path="/Author/Modelo de Escribir/Escribir Online" element={<EscribirOnline />} />
           <Route path="/Libros/:id" element={<Contenido />} />
           <Route path="/MisLibros/:id" element={<ContenidoAutor />} />
-          <Route path="/:categoriaId/:subcategoriaId" element={<Categoria />} />
+          <Route path="/:categoriaName/:subcategoriaName" element={<Categoria />} />
           <Route path="/Perfil de lector" element={<PerfilReader />} /> 
           <Route path="*" element={<NotFound />} />
         </Routes>
