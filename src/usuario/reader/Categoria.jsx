@@ -68,12 +68,12 @@ const [showFormato, setShowFormato] = useState(true);
         navigate("/404"); // Redirigir si no hay categoría válida
       } else {
         setLibros(resulta.data);
-  }
+    }
     })
     .catch(error => {
       navigate("/NotFound");
     });
-  },[categoriaName])
+  },[categoriaName, subcategoriaName, navigate])
 
   // Reiniciar filtros al cambiar subcategoría
   useEffect(() => {
@@ -83,63 +83,62 @@ const [showFormato, setShowFormato] = useState(true);
   }, [subcategoriaName]);
 
   //conseguir los formatos
-  useEffect(() => {
-    if (!libros) return; // 
+  // useEffect(() => {
+  //   if (!libros) return; // 
 
-    libros.forEach(libro => {
-      fetch(`http://localhost:5001/libros/libros/${libro._id}`)
-        .then(res => res.json())
-        .then(data => {
-          const tienePDF = Array.isArray(data) && data.some(c => c.archivo);
-          setLibrosConFormato(prev => ({ ...prev, [libro._id]: tienePDF }));
-        });
-    });
-  }, [libros]);
+  //   libros.forEach(libro => {
+  //     fetch(`http://localhost:5001/libros/libros/${libro._id}`)
+  //       .then(res => res.json())
+  //       .then(data => {
+  //         const tienePDF = Array.isArray(data) && data.some(c => c.archivo);
+  //         setLibrosConFormato(prev => ({ ...prev, [libro._id]: tienePDF }));
+  //       });
+  //   });
+  // }, [libros]);
 
 
 
-  //funcion para agregar libros a favoritos
-  const handleAgregarFavorito = (libro) => {
-    if (!user || !user._id) {
-      return setFaltaUser(true)
-    }
-    fetch(`http://localhost:5001/favoritos/${user._id}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        libroID: libro._id
-      })
-    })
-    .then((res) => {
-     if (res.ok) {
-        setFavoritos((prev) => [...prev, libro._id]); // Añadir localmente
-      }
-    })
-    .catch((err) => {
-      console.error("Error al añadir favorito:", err);
-    });
-};
-//conseguir los favoritos
-useEffect(() => {
-  if (user?._id) {
-    fetch(`http://localhost:5001/favoritos/${user._id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        if (Array.isArray(data.libros)) {
-          const ids = data.data.map((item) => item._id || item.libroID); // asegúrate del formato
-          setFavoritos(ids);
-        }
-      })
-      .catch((err) => console.error("Error al obtener favoritos:", err));
-  }
-}, [user]);
+//   //funcion para agregar libros a favoritos
+//   const handleAgregarFavorito = (libro) => {
+//     if (!user || !user._id) {
+//       return setFaltaUser(true)
+//     }
+//     fetch(`http://localhost:5001/favoritos/${user._id}`, {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json"
+//       },
+//       body: JSON.stringify({
+//         libroID: libro._id
+//       })
+//     })
+//     .then((res) => {
+//      if (res.ok) {
+//         setFavoritos((prev) => [...prev, libro._id]); // Añadir localmente
+//       }
+//     })
+//     .catch((err) => {
+//       console.error("Error al añadir favorito:", err);
+//     });
+// };
+// //conseguir los favoritos
+// useEffect(() => {
+//   if (user?._id) {
+//     fetch(`http://localhost:5001/favoritos/${user._id}`)
+//       .then((res) => res.json())
+//       .then((data) => {
+//         if (Array.isArray(data.libros)) {
+//           const ids = data.data.map((item) => item._id || item.libroID); // asegúrate del formato
+//           setFavoritos(ids);
+//         }
+//       })
+//       .catch((err) => console.error("Error al obtener favoritos:", err));
+//   }
+// }, [user]);
 
 //
 
 //referencia de titulo y libros  
-const tituloRef = useRef();
 const librosRef = useRef();
 const libroRefs=useRef([])
 //registro de ScrollTrigger
@@ -147,45 +146,18 @@ gsap.registerPlugin(ScrollTrigger);
 //titulo
 useGSAP(() => {
   ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-  if (!tituloRef.current || !librosRef.current || !libroRefs.current.length) return;
+  if (!librosRef.current || !libroRefs.current.length) return;
 
-  //titulos
-  ScrollTrigger.create({
-    trigger: tituloRef.current,
-    animation: gsap.timeline()
-      .fromTo(tituloRef.current,{
-        backgroundImage:"linear-gradient(to right bottom,#0f0c29, #302b63)"
-      },{
-        backgroundImage:"linear-gradient(to right bottom,#0f0c2900, #302b6300)",
-        duration: 1, 
-        ease: "sine.inOut"
-      },"<")
-      .fromTo(tituloRef.current.querySelector("h1"), {
-        x: -100, opacity: 0
-      }, {
-        x: 0, opacity: 1, duration: 1, ease: "power1.inOut"
-      })
-      .fromTo(tituloRef.current.querySelector("p"), {
-        y: 100, opacity: 0
-      }, {
-        y: 0, opacity: 1, duration: 1, ease: "power1.inOut"
-      },"<")
-      .fromTo(tituloRef.current.querySelector("hr"),{
-        width:"0%",opacity:0
-      },{
-        width:"80%",opacity:1, duration: 1, ease: "power1.inOut"
-      },"<")
-  });
   //libros
   ScrollTrigger.create({
-    trigger:tituloRef.current,
-    markers:false,
-    scrub:2,
-    start:"0% top",
-    end:"60% top",
+    trigger: librosRef.current,
+    markers:true,
+    start:"-100% 0",
+    end:"-100% 0",
+
     animation:gsap.timeline()
     .fromTo(librosRef.current,{
-      scale:0.8,
+      scale:0.9,
       borderRadius:"30px"
     },{
       scale:1,
@@ -213,96 +185,94 @@ useGSAP(() => {
 
   return (
     <>
-    <div style={{
-      display:"flex",
-      justifyContent:"center"
-    }} className='categoria-libros' ref={librosRef}>
-      {/* fitro de libros */}
+    {/* fitro de libros */}
      <aside>
-          {/* Buscador */}
-          <div className='filtro-buscador'>
-            <h3>Buscador</h3>
-            <div className='filtro-buscador-contenedor'>
-              <input type="text" 
-              value={searchTerm}
-              onChange={(e)=>setSearchTerm(e.target.value.toLowerCase())}
-              />
-              <i className="bx bx-search-alt" id='icon-buscador'/>
-            </div>
-          </div>
-          {/* Puntuación */}
-          <div className="filtro-bloque">
-            <div className="filtro-header" onClick={() => setShowRating(!showRating)}>
-              <h3>Puntuación</h3>
-              {showRating ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
-            </div>
-
-            {showRating && (
-              <ul>
-                {[5, 4, 3, 2, 1].map((stars) => (
-                  <li key={stars}>
-                    <input type="checkbox" id={`rating-${stars}`} 
-                    //fitro libros segun los estrellas elegido
-                    checked={selectedRatings.includes(stars)}
-                    onChange={(e) => {
-                      const isChecked = e.target.checked;
-                      setSelectedRatings(prev =>
-                        isChecked ? [...prev, stars] : prev.filter(r => r !== stars)
-                      );
-                    }}
-                    />
-                    <label htmlFor={`rating-${stars}`}>
-                      {[...Array(stars)].map((_, i) => (
-                        <Star key={i} size={15} style={{ color: '#facc15', marginRight: '2px' }} />
-                      ))}
-                    </label>
-                  </li>
-                ))}
-              </ul>
-            )}
+        
+        {/* Puntuación */}
+        <div className="filtro-bloque">
+          <div className="filtro-header" onClick={() => setShowRating(!showRating)}>
+            <h3>Puntuación</h3>
+            {showRating ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
           </div>
 
+          {showRating && (
+            <ul>
+              {[5, 4, 3, 2, 1].map((stars) => (
+                <li key={stars}>
+                  <input type="checkbox" id={`rating-${stars}`} 
+                  //fitro libros segun los estrellas elegido
+                  checked={selectedRatings.includes(stars)}
+                  onChange={(e) => {
+                    const isChecked = e.target.checked;
+                    setSelectedRatings(prev =>
+                      isChecked ? [...prev, stars] : prev.filter(r => r !== stars)
+                    );
+                  }}
+                  />
+                  <label htmlFor={`rating-${stars}`}>
+                    {[...Array(stars)].map((_, i) => (
+                      <Star key={i} size={15} style={{ color: '#facc15', marginRight: '2px' }} />
+                    ))}
+                  </label>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
 
-{/* Formato */}
-<div className="filtro-bloque">
-  <div className="filtro-header" onClick={() => setShowFormato(!showFormato)}>
-    <h3>Formato</h3>
-    {showFormato ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
-  </div>
+        {/* Buscador */}
+        <div className='filtro-buscador'>
+        <h3>Buscador</h3>
+        <div className='filtro-buscador-contenedor'>
+          <input type="text" 
+          value={searchTerm}
+          onChange={(e)=>setSearchTerm(e.target.value.toLowerCase())}
+          />
+          <i className="bx bx-search-alt" id='icon-buscador'/>
+        </div>
+        </div>
 
-  {showFormato && (
-    <ul>
-      <li>
-        <input
-          type="checkbox"
-          id="formato-pdf"
-          checked={formatoSeleccionado.includes("pdf")}
-          onChange={(e) => {
-            const isChecked = e.target.checked;
-            setFormatoSeleccionado(prev =>
-              isChecked ? [...prev, "pdf"] : prev.filter(f => f !== "pdf")
-            );
-          }}
-        />
-        <label htmlFor="formato-pdf">PDF</label>
-      </li>
-      <li>
-        <input
-          type="checkbox"
-          id="formato-no-pdf"
-          checked={formatoSeleccionado.includes("no-pdf")}
-          onChange={(e) => {
-            const isChecked = e.target.checked;
-            setFormatoSeleccionado(prev =>
-              isChecked ? [...prev, "no-pdf"] : prev.filter(f => f !== "no-pdf")
-            );
-          }}
-        />
-        <label htmlFor="formato-no-pdf">Leer en linea</label>
-      </li>
-    </ul>
-  )}
-</div>
+
+        {/* Formato */}
+        <div className="filtro-bloque">
+          <div className="filtro-header" onClick={() => setShowFormato(!showFormato)}>
+            <h3>Formato</h3>
+            {showFormato ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+          </div>
+
+          {showFormato && (
+            <ul>
+              <li>
+                <input
+                  type="checkbox"
+                  id="formato-pdf"
+                  checked={formatoSeleccionado.includes("pdf")}
+                  onChange={(e) => {
+                    const isChecked = e.target.checked;
+                    setFormatoSeleccionado(prev =>
+                      isChecked ? [...prev, "pdf"] : prev.filter(f => f !== "pdf")
+                    );
+                  }}
+                />
+                <label htmlFor="formato-pdf">PDF</label>
+              </li>
+              <li>
+                <input
+                  type="checkbox"
+                  id="formato-no-pdf"
+                  checked={formatoSeleccionado.includes("no-pdf")}
+                  onChange={(e) => {
+                    const isChecked = e.target.checked;
+                    setFormatoSeleccionado(prev =>
+                      isChecked ? [...prev, "no-pdf"] : prev.filter(f => f !== "no-pdf")
+                    );
+                  }}
+                />
+                <label htmlFor="formato-no-pdf">Leer en linea</label>
+              </li>
+            </ul>
+          )}
+        </div>
 
 
 
@@ -340,6 +310,11 @@ useGSAP(() => {
           </div> */}
       </aside>
 
+    <div style={{
+      display:"flex",
+      justifyContent:"center"
+    }} className='categoria-libros' ref={librosRef}>
+      
       {/* libros */}
       <div>
         {
@@ -367,7 +342,7 @@ useGSAP(() => {
               )
               //verificar las estrellas de fitro si está coincide a la cantidad de estrellas de libros
               const coincideRating =
-                selectedRatings.length === 0 || selectedRatings.some(rating => libro.estrella >= rating && libro.estrella < rating+1);
+                selectedRatings.length === 0 || selectedRatings.some(rating => libro.stars >= rating && libro.stars < rating+1);
               //verificar los precios si está coincide a los precios de libros
               const coincidePrecio = selectedPrices.length === 0 ||
               priceRanges.some((range) =>

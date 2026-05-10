@@ -37,8 +37,13 @@
 
 /* asidebar fitro */
 aside {
-  width: 250px;
+  width: 100%;
   font-size: 1rem;
+  max-height: fit-content;
+  box-shadow: 0px 0px 5px 1px var(--bg-color-default3);
+
+  display: flex;
+  justify-content: space-around;
 }
 
 aside h2 {
@@ -50,12 +55,10 @@ aside h2 {
 .filtro-buscador-contenedor{
     display: flex;
     align-items: center;
-    position: relative;
+    width: 500px;
 }
 /* icon buscador */
 .bx-search-alt{
-    position: absolute;
-    right: 10px;
 
     font-size: 10px;
 }
@@ -66,7 +69,6 @@ aside h2 {
 
 .filtro-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   cursor: pointer;
   font-weight: bold;
@@ -111,10 +113,6 @@ aside h2 {
   display: flex;
   /* ajuste linea */
   flex-wrap: wrap;
-  max-height: 150vh;
-  /* scroll */
-  overflow-y: scroll;
-  scrollbar-width: none;
 }
 
 .categoria-libro{

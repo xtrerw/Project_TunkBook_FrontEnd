@@ -129,6 +129,7 @@ button {
     padding:0 20px ;
     position: fixed;
     z-index: 100;
+    box-shadow: 0 2px 4px var(--color-border-default);
   }
   /* menu */
   .menu {

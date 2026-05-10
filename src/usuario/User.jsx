@@ -86,7 +86,7 @@ const User = () => {
                   <div className="dropdown-item">
                     {categoria.subCategoriesList.map(subitem => (
                     <Link key={subitem.id} 
-                    to={`/${categoria.categoryName}/${encodeURIComponent(subitem.subcategoryName)}`} 
+                    to={`/${categoria.categoryName}/${subitem.subcategoryName}`} 
                     onMouseEnter={() => setActiveSub(subitem.id)}
                     onClick={() =>{
                       setMenuOpen(false)
@@ -102,7 +102,7 @@ const User = () => {
                       style={{ backgroundImage: `url(http://localhost:8080${categoria.subCategoriesList.find((s) => s.id === activeSub)?.subcategoryImg})` }}
                     ></div>
                   ) : (
-                    <div className="dropdown-imagen" style={{ backgroundImage: 'url("http://localhost:8080/uploads/img/default.png")' }}></div>
+                    <div className="dropdown-imagen" style={{ backgroundImage: 'url("http://localhost:8080/uploads/img/subcate/default.png")' }}></div>
                   )}
                 </div>
               )
