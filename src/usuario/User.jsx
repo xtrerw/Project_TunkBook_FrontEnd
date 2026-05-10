@@ -43,15 +43,13 @@ const User = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   // Subcategoría activa para mostrar la imagen del dropdown
   const [activeSub, setActiveSub] = useState(null);
-  // controlar la visibilidad del menú (ocultar en login)
-  const [menuVisible, setMenuVisible] = useState(true);
   // Obtener la ubicación actual para determinar si estamos en la página de login
   const location=useLocation();
   const isLoginPage = location.pathname === "/login";
 
   return (
     <>
-    {menuVisible? (
+    {!isLoginPage? (
       <header>
         {/* icono de inicio */}
         <div className="tunk-icon-responsive">
@@ -70,8 +68,8 @@ const User = () => {
             <div
               key={categoria.id}
               className="menu-item"
-              onMouseEnter={() => {
-                setActiveCategory(categoria.id)
+              onClick={() => {
+                setActiveCategory(activeCategory === categoria.id ? null : categoria.id)
                 // Reiniciar subcategoría activa
                 setActiveSub(null) 
               }}
@@ -84,9 +82,7 @@ const User = () => {
           {categorias.map((categoria) => 
               // Mostrar el dropdown solo para la categoría activa
               activeCategory === categoria.id && (
-                <div className="dropdown" key={categoria.id} 
-                onMouseLeave={() => setActiveCategory(null)}
-                >
+                <div className="dropdown" key={categoria.id}>
                   <div className="dropdown-item">
                     {categoria.subCategoriesList.map(subitem => (
                     <Link key={subitem.id} 
@@ -116,9 +112,7 @@ const User = () => {
         onMouseEnter={() => {
                 setActiveCategory(null)
                 // Reiniciar subcategoría activa
-                setActiveSub(null)}}
-              // click, disaparecer el menu
-        onClick={() => setMenuVisible(false)}>
+                setActiveSub(null)}}>
           <button className="dancing-script btn-login">
               {user ? <Link to={'/Author/Modelo de Escribir/Subir Mi Libro Completo'}>Publicar Libros</Link> : <Link to="/login" >Publicar Libros</Link>}
           </button>
@@ -128,7 +122,7 @@ const User = () => {
         </div>
        
       </header>):
-      <Link to="/" onClick={() => setMenuVisible(true)}>
+      <Link to="/">
         <img src={tunkIcon} className="tunk-icon" />
       </Link>}
 
@@ -136,10 +130,12 @@ const User = () => {
           WebkitFilter: activeCategory ? 'blur(5px)' : 'none',
           filter: activeCategory ? 'blur(5px)' : 'none',
           transition: 'filter 0.3s ease, -webkit-filter 0.3s ease',
-      }}>
+      }}
+      onClick={() => setActiveCategory(null)}
+      >
         {/* Rutas de navegación */}
         <Routes>
-          <Route path="/login" element={<Login />} /> 
+          <Route path="/login" element={<Login />}/> 
           <Route path="/" element={<Reader />} />
           <Route path="/Author/Mis Datos/*" element={<MisDatos />} />
           <Route path="/Author/Mis Libros" element={<MisLibros />} />
