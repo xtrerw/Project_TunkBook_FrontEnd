@@ -9,7 +9,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { useRef } from "react";
-import { ChevronUp, ChevronDown, Star } from 'lucide-react';
+import { ChevronUp, ChevronDown } from 'lucide-react';
 import { useUser } from '../../context/UserContext'
 import { useNavigate } from 'react-router-dom'
 const Categoria = () => {
@@ -264,8 +264,13 @@ useGSAP(() => {
                   }}
                   />
                   <label htmlFor={`rating-${stars}`}>
-                    {[...Array(stars)].map((_, i) => (
-                      <Star key={i} size={15} style={{ color: '#facc15', marginRight: '2px' }} />
+                    {[...Array(5)].map((_, i) => (
+                        <i 
+                        key={i} style={{ 
+                        color: '#facc15', 
+                        marginRight: '2px' }}
+                        className={i < stars ? "bxf bx-star-circle" : "bx bx-star-circle"}
+                        />
                     ))}
                   </label>
                 </li>
@@ -379,7 +384,7 @@ useGSAP(() => {
                   {[...Array(5)].map((_, i) => (
                     <i
                       key={i}
-                      className={i < libro.stars ? "bx bxs-star" : "bx bx-star"}
+                      className={i < libro.stars ? "bxf bx-star-circle" : "bx bx-star-circle"}
                       style={{ color: "#facc15" }}
                     />
                   ))}
