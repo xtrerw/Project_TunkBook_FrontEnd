@@ -1,11 +1,18 @@
+// Importaciones necesarias de React, Router y contexto de usuario
 import { Routes, Route, Link, useLocation } from "react-router-dom";
+import { useState,useEffect,useLayoutEffect,useRef } from "react";
+import { useUser } from "../context/UserContext";
+// Importación gsap
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import gsap from "gsap";
+// Importación estilos
+import "./User.css";
+import "../style/responsive.css"
+// Importación de componentes de páginas
 import Reader from "./reader/Reader";
 import Login from "./autor/Login";
 import Contenido from "./reader/Contenido";
 import ContenidoAutor from "./autor/ContenidoAutor";
-import { useState,useEffect } from "react";
-import "./User.css";
-import "../style/responsive.css"
 import Categoria from "./reader/Categoria";
 import tunkIcon from "../img/tunk-icon.jpg";
 import EscribirOnline from "./autor/EscribirOnline";
@@ -16,7 +23,8 @@ import MisVentas from "./autor/MisVentas";
 import HistorialCompras from "./autor/HistorialCompras";
 import PerfilReader from "./reader/PerfilReader";
 import NotFound from "./NotFound";
-import { useUser } from "../context/UserContext";
+import { useGSAP } from "@gsap/react";
+
 
 
 
@@ -46,6 +54,46 @@ const User = () => {
   // Obtener la ubicación actual para determinar si estamos en la página de login
   const location=useLocation();
   const isLoginPage = location.pathname === "/login";
+
+  // Animación para abrir/cerrar el dropdown menu
+  const dropdownRef = useRef(null);
+  const textDropdownRefs = useRef([]);
+  const imgDefaultDropdownRef = useRef(null);
+  const imgDropdownRef = useRef(null);
+  gsap.registerPlugin(ScrollTrigger)
+  useGSAP(() => {
+  gsap.timeline()
+    .fromTo(
+      dropdownRef.current,
+      {
+        opacity: 1,
+        height: "0px",
+      },
+      {
+        opacity: 1,
+        height: "400px",
+        duration: 0.5,
+        ease: "expo.inOut",
+      }
+    )
+    .fromTo(
+      [
+        textDropdownRefs.current.filter(Boolean),
+        imgDropdownRef.current || imgDefaultDropdownRef.current,
+      ],
+      {
+        opacity: 0,
+        y: -20,
+      },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: "expo.inOut",
+      },
+      "<"
+    );
+}, { dependencies: [activeCategory] });
 
   return (
     <>
@@ -82,11 +130,16 @@ const User = () => {
           {categorias.map((categoria) => 
               // Mostrar el dropdown solo para la categoría activa
               activeCategory === categoria.id && (
-                <div className="dropdown" key={categoria.id}>
-                  <div className="dropdown-item">
+                <div className="dropdown" 
+                key={categoria.id}
+                ref={dropdownRef}
+                >
+                  <div className="dropdown-item" >
                     {categoria.subCategoriesList.map(subitem => (
-                    <Link key={subitem.id} 
+                    <Link 
+                    key={subitem.id} 
                     to={`/${categoria.categoryName}/${subitem.subcategoryName}`} 
+                    ref={(el) => textDropdownRefs.current[subitem.id] = el}
                     onMouseEnter={() => setActiveSub(subitem.id)}
                     onClick={() =>{
                       setMenuOpen(false)
@@ -99,10 +152,13 @@ const User = () => {
                   {/* Imagen decorativa del dropdown */}
                   {activeSub? (
                     <div className="dropdown-imagen"
+                    ref={imgDropdownRef}
                       style={{ backgroundImage: `url(http://localhost:8080${categoria.subCategoriesList.find((s) => s.id === activeSub)?.subcategoryImg})` }}
                     ></div>
                   ) : (
-                    <div className="dropdown-imagen" style={{ backgroundImage: 'url("http://localhost:8080/uploads/img/subcate/default.png")' }}></div>
+                    <div className="dropdown-imagen" 
+                    ref={imgDefaultDropdownRef}
+                    style={{ backgroundImage: 'url("http://localhost:8080/uploads/img/subcate/default.png")' }}></div>
                   )}
                 </div>
               )

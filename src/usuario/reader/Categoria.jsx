@@ -16,14 +16,13 @@ const Categoria = () => {
   
   //conseguir las categorias de libros
   const { categoriaName, subcategoriaName } = useParams();
-  console.log(categoriaName, subcategoriaName)
-  //set categoria
-  const [categoria, setCategorias] =useState(null)
   //set libros
   const [libros,setLibros] = useState(null)
+  //header mostrar filtro
+  const [showFiltro, setShowFiltro] = useState(false);
+  const [renderFiltro, setRenderFiltro] = useState(false);
   //sidebar de libros
   const [showRating, setShowRating] = useState(true);
-  const [showPrice, setShowPrice] = useState(true);
   // conseguir usuario
   const {user}=useUser();
   //buscador
@@ -39,6 +38,7 @@ const Categoria = () => {
   //si usuario no iniciar
   const [faltaUser,setFaltaUser]=useState(false)
 
+  
   // Lista de rangos de precio
   const priceRanges = [
     { label: '0€ - 8€', min: 0, max: 8 },
@@ -136,45 +136,67 @@ const [showFormato, setShowFormato] = useState(true);
 //   }
 // }, [user]);
 
-//
+useEffect(() => {
+  setShowFiltro(false);
+}, [categoriaName, subcategoriaName]);
 
-//referencia de titulo y libros  
-const librosRef = useRef();
+//gsap fitro
+const asideRef=useRef(null);
+useGSAP(() => {
+  const aside=asideRef.current
+  // get dom de aside y renderFiltro
+  if (!aside || !renderFiltro) return;
+  gsap.killTweensOf(aside)
+  if (showFiltro) {
+    gsap.fromTo(
+      aside,
+      {
+        opacity: 0,
+        x: -100,
+      },
+      {
+        opacity: 1,
+        x: 0,
+        duration: 0.4,
+        ease: "power2.out",
+        pointerEvents: "auto",
+      }
+    );
+  } else {
+    gsap.to(aside, {
+      opacity: 0,
+      x: -100,
+      duration: 0.4,
+      ease: "power2.in",
+      pointerEvents: "none",
+      onComplete: () => {
+        setRenderFiltro(false);
+      },
+    });
+  }
+}, { dependencies: [showFiltro] });
+
+
+//referencia de libros  
 const libroRefs=useRef([])
 //registro de ScrollTrigger
 gsap.registerPlugin(ScrollTrigger);
 //titulo
 useGSAP(() => {
   ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-  if (!librosRef.current || !libroRefs.current.length) return;
+  if (!libroRefs.current.length) return;
 
   //libros
   ScrollTrigger.create({
-    trigger: librosRef.current,
-    markers:true,
-    start:"-100% 0",
-    end:"-100% 0",
-
+    trigger: libroRefs.current,
+    markers:false,
     animation:gsap.timeline()
-    .fromTo(librosRef.current,{
-      scale:0.9,
-      borderRadius:"30px"
-    },{
-      scale:1,
-      borderRadius:"0"
-    })
-    .fromTo(librosRef.current.querySelector("aside"),{
-      y:30
-    },{
-      y:0,
-    },"<")
     .fromTo(libroRefs.current.filter(Boolean),{
-      y:300,
+      y:20,
       opacity:0
     },{
       y:0,
       opacity:1,
-      stagger:0.2
     },"<")
   })
 }, { dependencies: [libros, subcategoriaName]});
@@ -185,17 +207,49 @@ useGSAP(() => {
 
   return (
     <>
-    {/* fitro de libros */}
-     <aside>
-        
+    {/* header */}
+    <div className='categoria-header'>
+      <div className='filtro-icono-contenedor'
+      onClick={() => {
+        if (!showFiltro) {
+          setRenderFiltro(true);
+          setShowFiltro(true);
+        } else {
+          setShowFiltro(false);
+        }
+      }}
+      >
+        <div className={`filtro-icono ${showFiltro? "filtro-btn-click": null}`}>
+          <i className='bx bx-filter' ></i>
+        </div>
+        <div className={`filtro-texto ${showFiltro? "filtro-btn-click": null}`}>
+          <h1>Filtro</h1>
+        </div>
+      </div>
+      {/* Buscador */}
+      <div className='filtro-buscador'>
+        <div className='filtro-buscador-contenedor'>
+            <input 
+            className='buscador'
+            type="text" 
+            value={searchTerm}
+            onChange={(e)=>setSearchTerm(e.target.value.toLowerCase())}
+            />
+            <i className="bx bx-search-alt" id='icon-buscador'/>
+        </div>
+      </div>
+    </div>
+    
+    {/* main de libros y filtro */}
+    <div className='categoria-libros'>
+      {/* fitro de libros */}
+      {renderFiltro && (
+        <aside ref={asideRef}>
         {/* Puntuación */}
         <div className="filtro-bloque">
-          <div className="filtro-header" onClick={() => setShowRating(!showRating)}>
+          <div className="filtro-header">
             <h3>Puntuación</h3>
-            {showRating ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
           </div>
-
-          {showRating && (
             <ul>
               {[5, 4, 3, 2, 1].map((stars) => (
                 <li key={stars}>
@@ -217,30 +271,13 @@ useGSAP(() => {
                 </li>
               ))}
             </ul>
-          )}
         </div>
-
-        {/* Buscador */}
-        <div className='filtro-buscador'>
-        <h3>Buscador</h3>
-        <div className='filtro-buscador-contenedor'>
-          <input type="text" 
-          value={searchTerm}
-          onChange={(e)=>setSearchTerm(e.target.value.toLowerCase())}
-          />
-          <i className="bx bx-search-alt" id='icon-buscador'/>
-        </div>
-        </div>
-
 
         {/* Formato */}
         <div className="filtro-bloque">
           <div className="filtro-header" onClick={() => setShowFormato(!showFormato)}>
             <h3>Formato</h3>
-            {showFormato ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
           </div>
-
-          {showFormato && (
             <ul>
               <li>
                 <input
@@ -271,50 +308,12 @@ useGSAP(() => {
                 <label htmlFor="formato-no-pdf">Leer en linea</label>
               </li>
             </ul>
-          )}
         </div>
-
-
-
-          {/* Precio */}
-          {/* <div className="filtro-bloque">
-            <div className="filtro-header" onClick={() => setShowPrice(!showPrice)}>
-              <h3>Precio</h3>
-              {showPrice ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
-            </div>
-
-            {showPrice && (
-              <ul>
-                {priceRanges.map((range, i) => (
-                  <li key={i}>
-                    <input
-                      type="checkbox"
-                      id={`price-${i}`}
-                      checked={selectedPrices.includes(range.label)} // Ver si está seleccionado
-                      onChange={(e) => {
-                        const isChecked = e.target.checked;
-                        // Agregar o quitar el rango seleccionado
-                        setSelectedPrices((prev) =>
-                          isChecked
-                            ? [...prev, range.label]
-                            : prev.filter((label) => label !== range.label)
-                        );
-                      }}
-                    />
-                    <label htmlFor={`price-${i}`}>{range.label}</label>
-                  </li>
-                ))}
-                
-              </ul>
-            )}
-          </div> */}
       </aside>
 
-    <div style={{
-      display:"flex",
-      justifyContent:"center"
-    }} className='categoria-libros' ref={librosRef}>
-      
+      )}
+        
+     
       {/* libros */}
       <div>
         {

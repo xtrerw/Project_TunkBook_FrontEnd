@@ -1,49 +1,82 @@
-/* titluo de categoria */
-.categoria-titulo{
-    color: var(--bg-color-default);
-    min-height: 100vh;
+/* header de buscador */
+.categoria-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid var(--color-border-default);
+}
+.filtro-icono-contenedor {
+  display:flex;
+  cursor: pointer;
+}
+.filtro-icono,.filtro-texto{
+  display:flex;
+  align-items: center;
+  border: 1px solid var(--color-border-default);
+  height: 40px;
+  padding: 5px 10px;
+}
+.filtro-icono{
+  border-top-left-radius: 200px;
+  border-bottom-left-radius: 200px;
+}
+.filtro-texto{
+  border-top-right-radius: 200px;
+  border-bottom-right-radius: 200px;
+  border-left: none;
+  font-size: 8px;
+}
+/* click btn filtro */
+.filtro-btn-click{
+  background: var(--bg-color-default4);
+  color: var(--color-text-default);
+}  
+/* buscador */
+.filtro-buscador-contenedor{
+  display:flex;
+  align-items: center;
+  position: relative;
+}
+.buscador{
+  background: var(--bg-color-default);
+  border: 1px solid var(--color-border-default);
+  width: 1000px;
+  height: 40px;
+  padding: 5px 10px;
+  border-radius: 200px;
+  margin-left: 20px;
+}
+.buscador:focus{
+  border: 1.5px solid var( --color-border-default2);
+}
+/* icon buscador */
+.bx-search-alt{
+  position: absolute;
+  right: 10px;
+  font-size: 25px;
+  color:var(--color-text-default2);
+}
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background-image: linear-gradient(to right bottom,#0f0c2900, #302b6300);
-}
-.categoria-titulo>h1{
-    font-size: 250px;
-    margin-left: 50px;
-}
-.categoria-titulo>hr{
-    height: 15px;
-    background: var(--bg-color-default);
-}
-.categoria-titulo>p{
-    font-size: 120px;
-    margin-left: 50px;
-}
+
 /* libros */
 .categoria-libros {
   display: flex;
   justify-content: space-around;
 
   width: 100%;
-  margin: 0 auto;
-  padding: 2rem 4rem;
   box-sizing: border-box;
   background: var(--bg-color-default);
   color: var(--bg-color-default4);
   min-height: 100vh;
-  gap: 3rem;
 }
 
-/* asidebar fitro */
-aside {
-  width: 100%;
-  font-size: 1rem;
-  max-height: fit-content;
-  box-shadow: 0px 0px 5px 1px var(--bg-color-default3);
 
-  display: flex;
-  justify-content: space-around;
+/* asidebar */
+aside {
+  font-size: 1rem;
+  min-height: fit-content;
+  border-right: 1px solid var(--color-border-default);
+  padding: 2rem;
 }
 
 aside h2 {
@@ -51,22 +84,11 @@ aside h2 {
   border-radius: 4px;
   margin-bottom: 16px;
 }
-/* buscador */
-.filtro-buscador-contenedor{
-    display: flex;
-    align-items: center;
-    width: 500px;
-}
-/* icon buscador */
-.bx-search-alt{
 
-    font-size: 10px;
-}
 /* filtro estrella y precio */
 .filtro-bloque {
   margin-bottom: 24px;
 }
-
 .filtro-header {
   display: flex;
   align-items: center;
@@ -74,20 +96,17 @@ aside h2 {
   font-weight: bold;
 
 }
-
 .filtro-bloque ul {
   list-style: none;
   margin-top: 10px;
   padding-left: 0;
 }
-
 .filtro-bloque li {
   display: flex;
   align-items: center;
   gap: 6px;
   margin-bottom: 6px;
 }
-
 .filtro-bloque input[type="checkbox"] {
   width: 16px;
   height: 16px;
@@ -107,14 +126,17 @@ aside h2 {
   cursor: pointer;
   font-size: 15px;
 }
+
+
 /* libros */
 .categoria-libros>div {
-  width: 80%;
+  padding: 20px;
+  /* flex */
   display: flex;
   /* ajuste linea */
   flex-wrap: wrap;
+  width: 80%;
 }
-
 .categoria-libro{
     width: 150px;
     /* box-shadow: 0 0 8px 1px var(--bg-color-default3); */
