@@ -23,7 +23,7 @@
     margin: 15px 0;
 }
 .form-iniciar-img{
-    background-image: url("../../img/bg-login.png");
+    background-image: url("../img/bg-login.png");
     width: 40vw;
     height: 30vw;
     background-size: contain;

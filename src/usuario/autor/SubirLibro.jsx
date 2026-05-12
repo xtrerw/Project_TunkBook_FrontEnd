@@ -4,7 +4,7 @@ import './SubirLibro.css'
 import { useEffect } from 'react';
 import subirImgDefault from '../../img/subir-img-default.png'
 import { useNavigate } from 'react-router-dom';
-import Author from './Login';
+import Author from '../Login';
 const SubirLibro = () => {
     //useNavigate para redirigir al usuario
     const navigate = useNavigate();

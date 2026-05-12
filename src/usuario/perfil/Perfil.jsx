@@ -1,46 +1,44 @@
-import React, { useState, useEffect } from 'react';
-import Author from './Login';
-import './MisDatos.css';
-import CambiarContrasena from './CambiarContrasena';
-import EditarInformacion from './EditarInformacion';
+// 
+import React from 'react'
+import { useState,useEffect } from 'react'
 import { useUser } from '../../context/UserContext';
-
-const MisDatos = () => {
-  const [isRegistered, setIsRegistered] = useState(false);
-  const [userData, setUserData] = useState(null);
-  const [selectedTab, setSelectedTab] = useState("Mi Tunk");
-
+import { useNavigate } from 'react-router-dom';
+//css
+import './Perfil.css'
+import NotFound from '../NotFound';
+import CambiarContrasena from '../autor/CambiarContrasena';
+import EditarInformacion from './EditarInformacion';
+import MisFavoritos from './MisFavoritos';
+const PerfilReader = () => {
     //hasta top en caso clic
     useEffect(() => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }, []);
-
-  // Función para obtener los datos del usuario desde la API
+  //funcion de navegacion
+  const navigate = useNavigate();
+  // seleccionar la pestaña activa
+  const [selectedTab, setSelectedTab] = useState("Mi Tunk");
+  //conseguir los datos de usuario
+  const {user, setUser}=useUser();
+  console.log(user);
+  // actualizar los datos del usuario
   const fetchUserData = () => {
-    const userId = localStorage.getItem("userId");
+    
+    
+    const userId=user.id;
     if (userId) {
-      fetch(`http://localhost:5001/autor/${userId}`)
+      fetch(`http://localhost:8080/users/${userId}`)
         .then(response => response.json())
-        .then(data => setUserData(data))
+        .then(data => setUser(data))
         .catch(error => console.error("Error al obtener los datos:", error));
     }
   };
-
-  // Cargar datos al inicio
-  const {id,setUser}=useUser();
-  const userId = localStorage.getItem("userId");
-  useEffect(() => {
-    
-    if (userId) {
-      setIsRegistered(true);
-      fetchUserData();
-    }
-  }, [userId]);
-
+  //
+  if (!user) {
+    return <NotFound />;
+  }
   return (
-    <>
-      {isRegistered && userData ? (
-        <div className="profile-container">
+    <div className="profile-container">
           {/* Parte izquierda */}
           <aside className="profile-sidebar">
             <h2 
@@ -54,6 +52,12 @@ const MisDatos = () => {
               onClick={() => setSelectedTab("Dirección")}
             >
               Dirección
+            </h2>
+            <h2
+              className={selectedTab === "Mis Favoritos" ? "active-tab" : ""}
+              onClick={() => setSelectedTab("Mis Favoritos")}
+            >
+              Mis Favoritos
             </h2>
             <h2 
               className={selectedTab === "Editar Información" ? "active-tab" : ""}
@@ -70,9 +74,8 @@ const MisDatos = () => {
             <h2
               className="logout"
               onClick={() => {
-                localStorage.removeItem("userId");
-                setIsRegistered(false);
                 setUser(null);
+                navigate("/"); // Redirigir a la página de inicio
               }}
             >
               Cerrar Sesión
@@ -87,24 +90,28 @@ const MisDatos = () => {
                 <h1>Información Personal</h1>
                 <div className="info-item">
                   <span className="info-label">Nombre:</span>
-                  <span className="info-value">{userData.nombre} {userData.apellido}</span>
+                  <span className="info-value">{user.nombre} {user.apellido}</span>
                 </div>
                 <div className="info-item">
                   <span className="info-label">Género:</span>
-                  <span className="info-value">{userData.genero || "No especificado"}</span>
+                  <span className="info-value">{user.genero || "No especificado"}</span>
                 </div>
                 <div className="info-item">
                   <span className="info-label">La Fecha Nacimiento:</span>
                   {/* para guardar la fecha sin horario */}
-                  <span className="info-value"> {userData.fechaNacimiento?.split("T")[0]}</span>
+                  <span className="info-value"> {user.fechaNacimiento?.split("T")[0]}</span>
                 </div>
                 <div className="info-item">
                   <span className="info-label">Nacionalidad:</span>
-                  <span className="info-value">{userData.nacionalidad || "No especificado"}</span>
+                  <span className="info-value">{user.nacionalidad || "No especificado"}</span>
                 </div>
                 <div className="info-item">
                   <span className="info-label">Correo Electrónico:</span>
-                  <span className="info-value">{userData.email}</span>
+                  <span className="info-value">{user.email}</span>
+                </div>
+                <div className="info-item">
+                  <span className="info-label">Teléfono:</span>
+                  <span className="info-value">{user.telefono || "No especificado"}</span>
                 </div>
               </section>
             )}
@@ -114,38 +121,34 @@ const MisDatos = () => {
                 <h1>Dirección</h1>
                 <div className="info-item">
                   <span className="info-label">País:</span>
-                  <span className="info-value">{userData.pais || "No especificado"}</span>
+                  <span className="info-value">{user.pais || "No especificado"}</span>
                 </div>
                 <div className="info-item">
                   <span className="info-label">Provincia:</span>
-                  <span className="info-value">{userData.provincia || "No especificado"}</span>
+                  <span className="info-value">{user.provincia || "No especificado"}</span>
                 </div>
                 <div className="info-item">
                   <span className="info-label">Dirección:</span>
-                  <span className="info-value">{userData.direccion || "No especificado"}</span>
+                  <span className="info-value">{user.direccion || "No especificado"}</span>
                 </div>
                 <div className="info-item">
                   <span className="info-label">Código Postal:</span>
-                  <span className="info-value">{userData.codigoPostal || "No especificado"}</span>
+                  <span className="info-value">{user.codigoPostal || "No especificado"}</span>
                 </div>
               </section>
             )}
 
-            {selectedTab === "Editar Información" && <EditarInformacion 
-              tipoUsuario={userData.tipo}
+            {selectedTab === "Editar Información" && <EditarInformacion
               onSuccess={() => {
-                fetchUserData(); //conseguir los datos actualizados
+                fetchUserData(); // Actualizar los datos del usuario
                 setSelectedTab("Mi Tunk");//pasar a la pestaña de "Mi Tunk"
               }}
             />}
+            {selectedTab === "Mis Favoritos" && <MisFavoritos/>}
             {selectedTab === "Cambiar Contraseña" && <CambiarContrasena />}
           </div>
         </div>
-      ) : (
-        <Author />
-      )}
-    </>
-  );
-};
+  )
+}
 
-export default MisDatos;
+export default PerfilReader

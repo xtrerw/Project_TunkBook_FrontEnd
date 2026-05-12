@@ -10,18 +10,17 @@ import "./Home.css";
 import "../style/responsive.css"
 // Importación de componentes de páginas
 import MainHomePage from "./Main";
-import Login from "./autor/Login";
-import Contenido from "./reader/Contenido";
+import Login from "./Login";
+import Contenido from "./perfil/Contenido";
 import ContenidoAutor from "./autor/ContenidoAutor";
-import Categoria from "./reader/Categoria";
+import Categoria from "./Categoria";
 import tunkIcon from "../img/tunk-icon.jpg";
 import EscribirOnline from "./autor/EscribirOnline";
 import SubirLibro from "./autor/SubirLibro";
 import MisLibros from "./autor/MisLibros";
-import MisDatos from "./autor/MisDatos";
 import MisVentas from "./autor/MisVentas";
 import HistorialCompras from "./autor/HistorialCompras";
-import Perfil from "./reader/Perfil";
+import Perfil from "./perfil/Perfil";
 import NotFound from "./NotFound";
 import { useGSAP } from "@gsap/react";
 
@@ -196,7 +195,7 @@ const User = () => {
         <Routes>
           <Route path="/login" element={<Login />}/> 
           <Route path="/" element={<MainHomePage />} />
-          <Route path="/Author/Mis Datos/*" element={<MisDatos />} />
+          <Route path="/perfil" element={<Perfil />} /> 
           <Route path="/Author/Mis Libros" element={<MisLibros />} />
           <Route path="/Author/Ventas/Mis Ventas" element={<MisVentas />} />
           <Route path="/Author/Ventas/Historial de Compras" element={<HistorialCompras />} />
@@ -205,7 +204,6 @@ const User = () => {
           <Route path="/Libros/:id" element={<Contenido />} />
           <Route path="/MisLibros/:id" element={<ContenidoAutor />} />
           <Route path="/:categoriaName/:subcategoriaName" element={<Categoria />} />
-          <Route path="/perfil" element={<Perfil />} /> 
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

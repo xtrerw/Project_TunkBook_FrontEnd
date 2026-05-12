@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Author from './Login';
+import Author from '../Login';
 // import './MisLibros.css'; // Asegúrate de tener un archivo CSS para estilos
 import '../../style/libro.css'; // Asegúrate de tener un archivo CSS para estilos
 import { Link } from 'react-router-dom';

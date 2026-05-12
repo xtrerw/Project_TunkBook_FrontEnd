@@ -1,17 +1,16 @@
 import { useState } from 'react';
 import "./Login.css";
-import "../../style/calendario.css"
-import "../../style/responsive.css"
-// import "../../style/PasswordInput.css";
+import "../style/calendario.css"
+import "../style/responsive.css"
 import { useNavigate } from "react-router-dom";
 import { useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
-import { validateAuthor } from '../../utils/validateAuthor';
-import { useFormValidation } from '../../utils/useFormValidation';
-import { paises } from '../../utils/paises';
-import { provincias } from '../../utils/provincias';
-import { useUser } from '../../context/UserContext';
+import { validateAuthor } from '../utils/validateAuthor';
+import { useFormValidation } from '../utils/useFormValidation';
+import { paises } from '../utils/paises';
+import { provincias } from '../utils/provincias';
+import { useUser } from '../context/UserContext';
 function Author() {
     //error para iniciar sesión y registro
     const [loginError, setLoginError] = useState(null);

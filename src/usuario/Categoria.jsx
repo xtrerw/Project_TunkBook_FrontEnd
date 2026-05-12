@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import "./Categoria.css"
-import '../../style/libro.css' // Asegúrate de tener un archivo CSS para estilos
-import '../../style/responsive.css'
-import NotFound from '../NotFound'
-import Cargando from '../../utils/Cargando'
+import '../style/libro.css' // Asegúrate de tener un archivo CSS para estilos
+import '../style/responsive.css'
+import NotFound from './NotFound'
+import Cargando from '../utils/Cargando'
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { useRef } from "react";
 import { ChevronUp, ChevronDown } from 'lucide-react';
-import { useUser } from '../../context/UserContext'
+import { useUser } from '../context/UserContext'
 import { useNavigate } from 'react-router-dom'
 const Categoria = () => {
   
