@@ -251,30 +251,36 @@ useGSAP(() => {
             <h3>Puntuación</h3>
           </div>
             <ul>
-              {[5, 4, 3, 2, 1].map((stars) => (
+              {[5, 4, 3, 2, 1].map((stars) => {
+                const isSelected=selectedRatings.includes(stars);
+                return (
                 <li key={stars}>
                   <input type="checkbox" id={`rating-${stars}`} 
                   //fitro libros segun los estrellas elegido
-                  checked={selectedRatings.includes(stars)}
+                  checked={isSelected}
                   onChange={(e) => {
                     const isChecked = e.target.checked;
+                    // guardar o quitar star de filtro de usuario
                     setSelectedRatings(prev =>
+                      // agregar stars : quitar star
                       isChecked ? [...prev, stars] : prev.filter(r => r !== stars)
                     );
                   }}
                   />
-                  <label htmlFor={`rating-${stars}`}>
+                  <label htmlFor={`rating-${stars}`} className='filtro-stars'
+                    style={{
+                      background:`${isSelected? "var(--color-border-default2)": "none"}`
+                    }}
+                  >
                     {[...Array(5)].map((_, i) => (
                         <i 
-                        key={i} style={{ 
-                        color: '#facc15', 
-                        marginRight: '2px' }}
-                        className={i < stars ? "bxf bx-star-circle" : "bx bx-star-circle"}
+                        key={i} 
+                        className={`filtro-star ${i < stars ? "bxf bx-star-circle" : "bx bx-star-circle"}`}
                         />
                     ))}
                   </label>
                 </li>
-              ))}
+              )})}
             </ul>
         </div>
 
@@ -384,8 +390,7 @@ useGSAP(() => {
                   {[...Array(5)].map((_, i) => (
                     <i
                       key={i}
-                      className={i < libro.stars ? "bxf bx-star-circle" : "bx bx-star-circle"}
-                      style={{ color: "#facc15" }}
+                      className={`filtro-star ${i < libro.stars ? "bxf bx-star-circle" : "bx bx-star-circle"}`}
                     />
                   ))}
                 </p>

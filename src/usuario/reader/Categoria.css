@@ -61,7 +61,7 @@
 /* libros */
 .categoria-libros {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
 
   width: 100%;
   box-sizing: border-box;
@@ -93,8 +93,7 @@ aside h2 {
   display: flex;
   align-items: center;
   cursor: pointer;
-  font-weight: bold;
-
+  font-size: 14px;
 }
 .filtro-bloque ul {
   list-style: none;
@@ -108,19 +107,18 @@ aside h2 {
   margin-bottom: 6px;
 }
 .filtro-bloque input[type="checkbox"] {
-  width: 16px;
-  height: 16px;
-  cursor: pointer;
-  accent-color: var(--bg-color-default);
-  outline: none;
+  display: none;
 }
-.filtro-bloque input[type="checkbox"]:checked::before {
-  background: var(--bg-color-main);
+.filtro-stars{
+  border-radius: 20px;
+  padding: 3px 5px;
+  display: flex;
+  align-items: center;
+  justify-self: center;
 }
-.filtro-bloque input[type="checkbox"]:focus {
-  box-shadow: none;
-  accent-color: var(--bg-color-main);
-  color: var(--bg-color-main);
+.filtro-star{
+  color: var(--color-star);
+  margin-right: 2px;
 }
 .filtro-bloque label {
   cursor: pointer;

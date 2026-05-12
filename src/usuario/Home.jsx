@@ -6,10 +6,10 @@ import { useUser } from "../context/UserContext";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import gsap from "gsap";
 // Importación estilos
-import "./User.css";
+import "./Home.css";
 import "../style/responsive.css"
 // Importación de componentes de páginas
-import Reader from "./reader/Reader";
+import MainHomePage from "./Main";
 import Login from "./autor/Login";
 import Contenido from "./reader/Contenido";
 import ContenidoAutor from "./autor/ContenidoAutor";
@@ -21,7 +21,7 @@ import MisLibros from "./autor/MisLibros";
 import MisDatos from "./autor/MisDatos";
 import MisVentas from "./autor/MisVentas";
 import HistorialCompras from "./autor/HistorialCompras";
-import PerfilReader from "./reader/PerfilReader";
+import Perfil from "./reader/Perfil";
 import NotFound from "./NotFound";
 import { useGSAP } from "@gsap/react";
 
@@ -172,11 +172,11 @@ const User = () => {
                 setActiveCategory(null)
                 // Reiniciar subcategoría activa
                 setActiveSub(null)}}>
-          <button className="dancing-script btn-login">
+          <button className="btn-login btn-public">
               {user ? <Link to={'/Author/Modelo de Escribir/Subir Mi Libro Completo'}>Publicar Libros</Link> : <Link to="/login" >Publicar Libros</Link>}
           </button>
-           <button className="dancing-script btn-login">
-              {user ? <Link to="/Perfil de lector">Bienvenido, {user.username}</Link> : <Link to="/login" >Iniciar Sesión</Link>}
+           <button className="btn-login">
+              {user ? <Link to="/perfil">Bienvenido, {user.username}</Link> : <Link to="/login" >Iniciar Sesión</Link>}
           </button>
         </div>
        
@@ -195,7 +195,7 @@ const User = () => {
         {/* Rutas de navegación */}
         <Routes>
           <Route path="/login" element={<Login />}/> 
-          <Route path="/" element={<Reader />} />
+          <Route path="/" element={<MainHomePage />} />
           <Route path="/Author/Mis Datos/*" element={<MisDatos />} />
           <Route path="/Author/Mis Libros" element={<MisLibros />} />
           <Route path="/Author/Ventas/Mis Ventas" element={<MisVentas />} />
@@ -205,7 +205,7 @@ const User = () => {
           <Route path="/Libros/:id" element={<Contenido />} />
           <Route path="/MisLibros/:id" element={<ContenidoAutor />} />
           <Route path="/:categoriaName/:subcategoriaName" element={<Categoria />} />
-          <Route path="/Perfil de lector" element={<PerfilReader />} /> 
+          <Route path="/perfil" element={<Perfil />} /> 
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

@@ -4,11 +4,16 @@
 }
 
 .form-iniciar button{
-    background-color: var(--bg-color-default4);
+    background-color: var(--bg-color-default6);
     color: var(--color-text-default);
     font-weight: 700;
+    font-family: var(--ff-btn-login);
     border-radius: 50px;
-    width: 100%;
+    width: 80%;
+    height: 40px;
+}
+.form-iniciar button:hover{
+    background-color:var(--bg-color-default4);
 }
 .buttones{
     display: flex;
@@ -18,16 +23,17 @@
     margin: 15px 0;
 }
 .form-iniciar-img{
-    background-image: url("../../img/bg-login.jpg");
+    background-image: url("../../img/bg-login.png");
     width: 40vw;
     height: 30vw;
-    background-size: cover;
+    background-size: contain;
+    background-repeat: no-repeat;
     background-position: center;
 
     margin: 30px;
 }
 .form-iniciar>form{
-    width: 300px;
+    width: 400px;
     min-height: 400px;
     padding: 50px 30px;
     margin: 20px;
@@ -39,7 +45,8 @@
     justify-self: center;
 
 }
-.form-iniciar>form>h2{
+.form-iniciar h2{
+    font-family: var(--ff-titulo-login);
     font-size: 1.8rem;
     margin-bottom: 20px;
     color: var(--color-text-primary);
@@ -47,15 +54,29 @@
 /* icon de esconder y mostrar en iniciar sesión */
 .form-iniciar label{
     width: 100%;
-    margin-top: 5px;
+    margin: 15px 0;
+    font-weight: 500;
 }
 .tipo-usuario{
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
-.form-iniciar .password-input-container>.bx {
+.password-input-container{
+    position: relative;
+}
+.form-iniciar input {
+    font-family: var(--ff-input-login);
+    font-size: 14px;
+    font-weight: 350;
+    color: var(--color-text-primary);
+    padding-right: 2.5rem;
+}
+.password-input-container>.bx {
+    position: absolute;
+    right: 12px;
     top: 50%;
+    cursor: pointer;
 }
 .registro-info{
     display: flex;
@@ -66,7 +87,3 @@
 }
 
 
-/* icon de registro */
-.form-registro>.password-input-container>.bx {
-    top: 50%;
-}

@@ -1,20 +1,18 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-/* configurar los estilos de componentes defectos */
-.anton-regular {
-  font-family: "Montserrat", sans-serif;
-  font-weight: 350;
-}
 
-
-.dancing-script{
-  font-family: "Lobster", serif;
-  font-weight: 500;
-}
 :root {
-    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  
+  font-family: var(--ff-default);
+  /* home page */
+    --ff-default:"Montserrat", sans-serif;
+    --ff-titulo:"Lobster", sans-serif;
+    --ff-registro:"Caveat", cursive;
+    /* login page */
+    --ff-titulo-login:"Bricolage Grotesque", sans-serif;
+    --ff-label-login:var(--ff-default);
+    --ff-input-login:var(--ff-default);
+    --ff-btn-login:var(--ff-default);
     /* color-scheme: light dark; */
     background-color: rgba(255, 255, 255, 0.87);
     cursor: default;
@@ -31,6 +29,8 @@
     --bg-color-default3:#e5e4e4;
     --bg-color-default4:#181818;
     --bg-color-default5:#f8f8f8;
+    --bg-color-default6:#444444;
+    --bg-color-default7:rgba(255,215,0);
 
 
     --bg-color-main:#535bf2;
@@ -57,10 +57,10 @@
     --color-text-secondary: #555;
     --color-text-default: #ffffff;
     --color-text-default2: #aaa;
-    /* border */
-    --color-border-default: #ccc;
-     --color-border-default2: #757575;
-     --color-border-default3:rgba(0, 0, 0, 0.05);
+    /* border color */
+    --color-border-default: rgba(1, 1, 1, 0.1);
+    --color-border-default2: #757575;
+    --color-border-default3:rgba(0, 0, 0, 0.05);
     /* input */
     --color-text-input: rgb(69, 69, 69);
     /* error */
@@ -74,8 +74,8 @@
     --bg-color-gradient1: var(--bg-color-main);
     --bg-color-gradient2: var(--bg-color-main6);
     --bg-color-gradient3: rgb(255, 217, 4);
-    /* border color */
-    --color-border-default: rgba(1, 1, 1, 0.1);
+    /* star */
+    --color-star:#facc15;
   }
   
   h1,h2,h3,p{
@@ -87,7 +87,19 @@
     padding: 0;
     box-sizing: border-box;
   }
-
+  a {
+    font-weight: 200;;
+    text-decoration: inherit;
+    cursor: pointer;
+    color: var(--color-text-primary);
+  }
+  
+  button {
+    border: 1px solid transparent;
+    font-size: 1em;
+    background-color: var(--bg-color-default);
+    cursor: pointer;
+  }
   /* Estilos para input de tipo number */
   input[type="number"]::-webkit-outer-spin-button,
   input[type="number"]::-webkit-inner-spin-button {
@@ -109,17 +121,6 @@ input:focus,select:focus {
   border-bottom: 2px solid var(--color-text-primary);
   outline: none;
   transition: all 0.2s ease-in-out;
-}
-button {
-  border: none;
-  padding: 10px 20px;
-  border-radius: 6px;
-  cursor: pointer;
-  min-width: 150px;
-  
-  font-family: "Montserrat", sans-serif;
-  font-weight: 400;
-  font-style: normal;
 }
 
   header{
@@ -225,26 +226,24 @@ button {
     height: 50px;
     border-radius: 50%;
   }
-  a {
-    font-weight: 200;;
-    text-decoration: inherit;
-    cursor: pointer;
-    color: var(--color-text-primary);
-  }
-  
-  button {
-    border-radius: 8px;
-    border: 1px solid transparent;
-    font-size: 1em;
-    font-weight: 500;
-    background-color: var(--bg-color-default);
-    cursor: pointer;
-    transition: border-color 0.25s;
-  }
   /* btn-login */
   .btn-login{
     cursor: default;
     letter-spacing: 1.5px;
+
+    font-family: var(--ff-registro);
+    font-weight: 500;
+    font-style: normal;
+    
+    margin: 0 10px;
+  }
+  .btn-public{
+    background: var(--bg-color-default4);
+    border-radius: 50px;
+    padding: 5px 10px;
+  }
+  .btn-public>a{
+    color: var(--color-star);
   }
   /* menú */
   .menu{

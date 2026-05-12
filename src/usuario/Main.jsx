@@ -1,7 +1,7 @@
 import { useState, useEffect,useRef } from 'react';
 import { Link } from 'react-router-dom';
-import "./Reader.css"
-import "../../style/libro.css"
+import "./Main.css"
+import "../style/libro.css"
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import { useGSAP } from "@gsap/react";
@@ -115,7 +115,7 @@ useGSAP(() => {
     <div>
       <div className='parte-titulo'>
         <div className='parte-primero'>
-          <h1 className='titulo dancing-script'>No dejes que tus historias se pierdan en el silencio</h1>
+          <h1 className='titulo'>No dejes que tus historias se pierdan en el silencio</h1>
           <h2 className='titulo2'>Lee, escribe y conecta con personas que aman las historias como tú</h2>
           <button className='btn-comenzar'>Explorar historias</button>
           <Link to="/login" className='link-login'>

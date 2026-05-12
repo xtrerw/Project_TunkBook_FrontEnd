@@ -181,7 +181,6 @@ function Author() {
                                 <input className={loginError? "error-input" : ""} type="text" name='username' placeholder='Username' value={loginInfo.username} onChange={handeleChangeLogin}
                                  required />
                             </label>
-                            
                             {/* campo de la contraseña */}
                             <label className='password-input-container'>
                                 Contraseña
@@ -195,7 +194,7 @@ function Author() {
                                 <i
                                 // muestra la contraseña en texto plano o encriptada
                                 // cambia el icono de ojo abierto a ojo cerrado y viceversa
-                                className={`bx ${showPassword ? 'bx-show' : 'bx-hide'}`} 
+                                className={`bx ${showPassword ? 'bx-eye-big' : 'bx-eye-closed'}`} 
                                 onClick={()=>setShowPassword(!showPassword)}
                                 ></i>
                             </label>
@@ -276,7 +275,7 @@ function Author() {
                             <i
                                 // muestra la contraseña en texto plano o encriptada
                                 // cambia el icono de ojo abierto a ojo cerrado y viceversa
-                                className={`bx ${showPassword2 ? 'bx-show' : 'bx-hide'}`} 
+                                className={`bx ${showPassword2 ? 'bx-eye-big' : 'bx-eye-closed'}`} 
                                 onClick={()=>setShowPassword2(!showPassword2)}
                                 ></i>  
                             </label>

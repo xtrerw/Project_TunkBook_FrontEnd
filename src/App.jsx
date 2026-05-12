@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import Admin from "./admin/Admin";
-import User from "./usuario/User";
+import HomeUsuario from "./usuario/Home";
 import PaginaAdmin from "./admin/PaginaAdmin";
 function App() {
 
@@ -12,7 +12,7 @@ function App() {
           <Route path="/admin" element={<Admin />} />
           <Route path="/paginaAdmin/*" element={<PaginaAdmin />} />
           {/* la interface del usuario */}
-          <Route path="/*" element={<User />} />
+          <Route path="/*" element={<HomeUsuario />} />
         </Routes>
       </div>
   );
