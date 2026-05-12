@@ -23,8 +23,6 @@ const PerfilReader = () => {
   console.log(user);
   // actualizar los datos del usuario
   const fetchUserData = () => {
-    
-    
     const userId=user.id;
     if (userId) {
       fetch(`http://localhost:8080/users/${userId}`)
@@ -87,31 +85,22 @@ const PerfilReader = () => {
 
             {selectedTab === "Mi Tunk" && (
               <section className="info-section">
+                <div>
+                  <img src={`http://localhost:8080${user.imgPerfil}`} alt="" />
+                </div>
                 <h1>Información Personal</h1>
                 <div className="info-item">
                   <span className="info-label">Nombre:</span>
-                  <span className="info-value">{user.nombre} {user.apellido}</span>
-                </div>
-                <div className="info-item">
-                  <span className="info-label">Género:</span>
-                  <span className="info-value">{user.genero || "No especificado"}</span>
+                  <span className="info-value">{user.username}</span>
                 </div>
                 <div className="info-item">
                   <span className="info-label">La Fecha Nacimiento:</span>
                   {/* para guardar la fecha sin horario */}
-                  <span className="info-value"> {user.fechaNacimiento?.split("T")[0]}</span>
-                </div>
-                <div className="info-item">
-                  <span className="info-label">Nacionalidad:</span>
-                  <span className="info-value">{user.nacionalidad || "No especificado"}</span>
+                  <span className="info-value"> {user.dateBirth?.split("T")[0]}</span>
                 </div>
                 <div className="info-item">
                   <span className="info-label">Correo Electrónico:</span>
                   <span className="info-value">{user.email}</span>
-                </div>
-                <div className="info-item">
-                  <span className="info-label">Teléfono:</span>
-                  <span className="info-value">{user.telefono || "No especificado"}</span>
                 </div>
               </section>
             )}
