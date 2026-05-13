@@ -4,10 +4,10 @@ import DatePicker from 'react-datepicker'; // Si necesitas un selector de fecha 
 import "react-datepicker/dist/react-datepicker.css"; // Estilos para el DatePicker
 import { registerLocale } from "react-datepicker";
 import es from "date-fns/locale/es"; // Importa el locale español
-import { paises } from '../../utils/paises';
-import { provincias } from '../../utils/provincias'; // Importa la lista de provincias
-import { validateEditarInformacion } from '../../utils/validateEditarInformacion'; // Importa la función de validación
-import { useFormValidation } from '../../utils/useFormValidation';
+import { paises } from '../../utils/utils_lists/paises';
+import { provincias } from '../../utils/utils_lists/provincias'; // Importa la lista de provincias
+import { validateEditarInformacion } from '../../utils/validations/validateEditarInformacion'; // Importa la función de validación
+import { useFormValidation } from '../../utils/validations/useFormValidation';
 import { useUser } from '../../context/UserContext';
 
 registerLocale('es', es)

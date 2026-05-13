@@ -1,7 +1,7 @@
 import React from 'react'
 import { useEffect,useState } from 'react'
 import './CambiarContrasena.css'
-import { validatePassword } from '../../utils/validatePassword'
+import { validatePassword } from '../../utils/validations/validatePassword'
 const CambiarContrasena = () => {
   // Estado para mostrar/ocultar la contraseña
   const [showPasswordAnterior, setShowPasswordAnterior] = useState(false); // Estado para mostrar/ocultar la contraseña anterior

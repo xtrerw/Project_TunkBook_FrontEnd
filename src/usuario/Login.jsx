@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+import axios from 'axios';
 import "./Login.css";
 import "../style/calendario.css"
 import "../style/responsive.css"
@@ -6,12 +7,17 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
-import { validateAuthor } from '../utils/validateAuthor';
-import { useFormValidation } from '../utils/useFormValidation';
-import { paises } from '../utils/paises';
-import { provincias } from '../utils/provincias';
+import { validateAuthor } from '../utils/validations/validateAuthor';
+import { useFormValidation } from '../utils/validations/useFormValidation';
+import { paises } from '../utils/utils_lists/paises';
+import { provincias } from '../utils/utils_lists/provincias';
 import { useUser } from '../context/UserContext';
-function Author() {
+import { getAuthenticatedUser } from '../utils/authorization/getAuthenticatedUser';
+
+function Login() {
+    // 
+    const apiUrl = import.meta.env.VITE_API_URL;
+
     //error para iniciar sesión y registro
     const [loginError, setLoginError] = useState(null);
     const [registerError, setRegisterError] = useState(null);
@@ -31,7 +37,6 @@ function Author() {
     //Variables para controlar el estado de registro y éxito
     const [isExito, setExisto] = useState(false);
     //Variable id para navegar al autor correspondiente
-    const [id,setId]=useState()
 
       //hasta top en caso clic
       useEffect(() => {
@@ -40,8 +45,8 @@ function Author() {
     //
       const [loginInfo, setLoginInfo] = useState({
         username: '',
-        password: '',
       });
+      const loginPasswordRef = useRef(null);
       const handeleChangeLogin = (e)=>{
         const {name,value}=e.target;
         setLoginInfo({
@@ -51,37 +56,39 @@ function Author() {
         setLoginError(null);
       }
 
-    //Función para iniciar sesión del autor
+    //Función para iniciar sesión
     const handleIniciar = async (e) => {
         e.preventDefault();
         setLoginError(null);
         // Validar el formulario antes de enviar
         try {
-            const response = await fetch('http://localhost:8080/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ username: loginInfo.username, password: loginInfo.password }),
+            //quitar password si login
+            const password = loginPasswordRef.current?.value || '';
+            // token 不再保存在 localStorage，避免 XSS 时被前端 JS 直接读取。
+            // 正确做法是让后端在登录成功后通过 Set-Cookie 写入 HttpOnly Cookie。
+            const res = await axios.post(`${apiUrl}/login`, {
+                username: loginInfo.username,
+                password
+            }, {
+                // 允许浏览器接收后端设置的 Cookie，并在之后请求时自动携带 Cookie。
+                withCredentials: true
             });
-            const res = await response.json();
-            if (response.ok && res.code === 1  && res.data) {
-                console.log(res + " con éxito");
+            const loggedInUser=getAuthenticatedUser(res.data)
+            if (res.status===200 && res.data.code === 1 && loggedInUser) {
+                console.log(loggedInUser);
                 //si se ha iniciado sesión correctamente, guardar el usuario en el contexto
-                setUser(res.data);
+                setUser(loggedInUser);
                 //conseguir id con éxito
-                setId(res._id)
                 setExisto(true);
+                // 登录状态由后端的 HttpOnly Cookie 维持。
+                // 这里的 user 只放在 React 内存状态里，用来渲染页面，不用来保存 token。
                 //guardar en local storage en caso de que se haya iniciado sesión correctamente
-                localStorage.setItem("loggedInUser", JSON.stringify(res));
-                localStorage.setItem("userId", res._id);
-            }else{
-                setLoginError(res.msg);
-                //si no se ha iniciado sesión, mostrar mensaje de error
+            } else {
+                setLoginError(res.data.msg);
             }
         } catch (error) {
-            console.error('Error al iniciar sesión:', error.msg);
-            setLoginError("Error iniciar Sesión " + error.msg);
+            console.error('Error al iniciar sesión:', error);
+            setLoginError(error.data?.msg || "Error al iniciar sesión");
       }
     };
     //Función para manejar el registro del autor
@@ -132,16 +139,8 @@ function Author() {
         if(errorAutor) return;
 
         try {
-            const response = await fetch('http://localhost:8080/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(userInfo),
-            });
-            const data = await response.json();
-            if (response.ok) {
-                //
+            const res = await axios.post(`${apiUrl}/register`, userInfo);
+            if (res.code === 1) {
                 setUserInfo({
                     username: '',
                     password: '',
@@ -149,13 +148,12 @@ function Author() {
                     email:''
                 });
                 setRegistro("iniciar");
-            }else{
-                setRegisterError(data.message);
-                //si no se ha registrado, mostrar mensaje de error
+                setRegisterError(null);
+            } else {
+                setRegisterError(res.msg || "Error al registrar");
             }
         } catch (error) {
-            //si no se ha registrado, mostrar mensaje de error
-            setRegisterError("Error al registrar el usuario: " + error.message);
+            setRegisterError(error.msg || "Error al registrar el usuario");
         }
     };
     // si el registro es exitoso, navegar a la página de registro
@@ -187,8 +185,8 @@ function Author() {
                                 className={loginError? "error-input" : ""}
                                 type={showPassword ? "text" : "password"}
                                 name='password' placeholder='Contraseña' 
-                                value={loginInfo.password} 
-                                onChange={handeleChangeLogin} 
+                                ref={loginPasswordRef}
+                                autoComplete="current-password"
                                 required />
                                 <i
                                 // muestra la contraseña en texto plano o encriptada
@@ -270,7 +268,7 @@ function Author() {
                                 />
                             <label className='password-input-container'>
                             Contraseña
-                            <input type={showPassword2?`text`:`password`} className={errores.password? "error-input" :""} name="password" placeholder="Password" value={userInfo.password} onChange={handleInputChange} required/>
+                            <input type={showPassword2?`text`:`password`} className={errores.password? "error-input" :""} name="password" placeholder="Password" value={userInfo.password} onChange={handleInputChange} autoComplete="new-password" required/>
                             <i
                                 // muestra la contraseña en texto plano o encriptada
                                 // cambia el icono de ojo abierto a ojo cerrado y viceversa
@@ -298,4 +296,4 @@ function Author() {
     );
 }
 
-export default Author; 
+export default Login; 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './GestionCategoria.css'; 
-import { validateCategoria } from '../utils/validateCategoria';//introduce archivo para validar
-import { useFormValidation } from '../utils/useFormValidation';
+import { validateCategoria } from '../utils/validations/validateCategoria';//introduce archivo para validar
+import { useFormValidation } from '../utils/validations/useFormValidation';
 import Cargando from '../utils/Cargando';
 const GestionCategoria = () => {
   

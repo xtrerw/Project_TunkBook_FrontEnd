@@ -26,14 +26,14 @@ import { useGSAP } from "@gsap/react";
 
 
 
-
 // Componente principal
 const User = () => {
+  const apiUrl = import.meta.env.VITE_API_URL;
   // Estado de categorías
   const [categorias, setCategorias] = useState([]);
   // Obtener las categorías del backend
   useEffect(() => {
-    fetch("http://localhost:8080/categories")
+    fetch(`${apiUrl}/categories`)
       .then((response) => response.json())
       .then((categorias) => {
         setCategorias(categorias.data);

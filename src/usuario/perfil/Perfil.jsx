@@ -5,10 +5,11 @@ import { useUser } from '../../context/UserContext';
 import { useNavigate } from 'react-router-dom';
 //css
 import './Perfil.css'
-import NotFound from '../NotFound';
+import Login from '../Login'
 import CambiarContrasena from '../autor/CambiarContrasena';
 import EditarInformacion from './EditarInformacion';
 import MisFavoritos from './MisFavoritos';
+import axios from 'axios';
 const PerfilReader = () => {
     //hasta top en caso clic
     useEffect(() => {
@@ -19,21 +20,39 @@ const PerfilReader = () => {
   // seleccionar la pestaña activa
   const [selectedTab, setSelectedTab] = useState("Mi Tunk");
   //conseguir los datos de usuario
-  const {user, setUser}=useUser();
+  const {user, setUser, loadingUser}=useUser();
+  //
   console.log(user);
+  const apiUrl=import.meta.env.VITE_API_URL;
+  //muestrar informacion
+  useEffect(()=>{
+    if (loadingUser || user) return
+    axios.get(`${apiUrl}users/info`,{
+      withCredentials:true
+    })
+    .then((response)=>{
+      setUser(response.data.data)
+    })
+    .catch((error)=>
+      console.error("NOT LOGIN"))
+  })
+
   // actualizar los datos del usuario
   const fetchUserData = () => {
     const userId=user.id;
     if (userId) {
-      fetch(`http://localhost:8080/users/${userId}`)
+      fetch(`${apiUrl}users/${userId}/update`)
         .then(response => response.json())
         .then(data => setUser(data))
         .catch(error => console.error("Error al obtener los datos:", error));
     }
   };
   //
+  if (loadingUser) {
+    return null;
+  }
   if (!user) {
-    return <NotFound />;
+    return <Login />;
   }
   return (
     <div className="profile-container">
