@@ -22,20 +22,21 @@ const PerfilReader = () => {
   //conseguir los datos de usuario
   const {user, setUser, loadingUser}=useUser();
   //
-  console.log(user);
   const apiUrl=import.meta.env.VITE_API_URL;
-  //muestrar informacion
   useEffect(()=>{
-    if (loadingUser || user) return
-    axios.get(`${apiUrl}users/info`,{
-      withCredentials:true
-    })
-    .then((response)=>{
-      setUser(response.data.data)
-    })
-    .catch((error)=>
-      console.error("NOT LOGIN"))
-  },[loadingUser,user,apiUrl])
+    console.log("infor user",user);
+  },[user])
+  //muestrar informacion
+ useEffect(() => {
+  if (loadingUser || (user && user.email&&user.dateBirth)) return; // 
+  //send cookie a Backend
+   axios.get(`${apiUrl}/users/info`, {
+    withCredentials: true
+  })
+  //get infor de user
+  .then((res) => setUser(res.data.data))
+  .catch((err) => console.error("Error al obtener info del usuario", err));
+}, [loadingUser, user]);
 
   // actualizar los datos del usuario
   const fetchUserData = () => {
@@ -48,9 +49,6 @@ const PerfilReader = () => {
     }
   };
   //
-  if (loadingUser) {
-    return null;
-  }
   if (!user) {
     return <Login />;
   }

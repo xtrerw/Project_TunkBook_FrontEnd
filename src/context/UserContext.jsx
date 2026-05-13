@@ -21,8 +21,7 @@ export const UserProvider = ({ children }) => {
           withCredentials: true,
         });
         // devolver infor de user
-        setUser(res.data);
-        console.log(user);
+        setUser(res.data.data);
         
       } catch (error) {
         // si no hay Cookie por caducidacion, login con error,set null   
@@ -34,6 +33,10 @@ export const UserProvider = ({ children }) => {
 
     restoreUser();
   }, [apiUrl]);
+
+  useEffect(() => {
+  console.log("User changed:", user);
+}, [user]);
 
   return (
     <UserContext.Provider value={{ user, setUser, loadingUser }}>

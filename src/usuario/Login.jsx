@@ -74,7 +74,7 @@ function Login() {
             });
             if (res.status===200 && res.data.code === 1) {
                 //si se ha iniciado sesión correctamente, guardar el usuario en el contexto
-                setUser(res.data);
+                setUser(res.data.data);
                 //conseguir id con éxito
                 setExisto(true);
                 // 登录状态由后端的 HttpOnly Cookie 维持。
