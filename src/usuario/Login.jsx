@@ -12,7 +12,6 @@ import { useFormValidation } from '../utils/validations/useFormValidation';
 import { paises } from '../utils/utils_lists/paises';
 import { provincias } from '../utils/utils_lists/provincias';
 import { useUser } from '../context/UserContext';
-import { getAuthenticatedUser } from '../utils/authorization/getAuthenticatedUser';
 
 function Login() {
     // 
@@ -73,11 +72,9 @@ function Login() {
                 // 允许浏览器接收后端设置的 Cookie，并在之后请求时自动携带 Cookie。
                 withCredentials: true
             });
-            const loggedInUser=getAuthenticatedUser(res.data)
-            if (res.status===200 && res.data.code === 1 && loggedInUser) {
-                console.log(loggedInUser);
+            if (res.status===200 && res.data.code === 1) {
                 //si se ha iniciado sesión correctamente, guardar el usuario en el contexto
-                setUser(loggedInUser);
+                setUser(res.data);
                 //conseguir id con éxito
                 setExisto(true);
                 // 登录状态由后端的 HttpOnly Cookie 维持。

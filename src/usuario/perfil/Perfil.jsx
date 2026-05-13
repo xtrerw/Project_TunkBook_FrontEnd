@@ -35,7 +35,7 @@ const PerfilReader = () => {
     })
     .catch((error)=>
       console.error("NOT LOGIN"))
-  })
+  },[loadingUser,user,apiUrl])
 
   // actualizar los datos del usuario
   const fetchUserData = () => {

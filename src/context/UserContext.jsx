@@ -1,7 +1,6 @@
 // src/context/UserContext.js
 import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
-import { getAuthenticatedUser } from "../utils/authorization/getAuthenticatedUser";
 
 // Crear el contexto
 const UserContext = createContext();
@@ -22,7 +21,9 @@ export const UserProvider = ({ children }) => {
           withCredentials: true,
         });
         // devolver infor de user
-        setUser(getAuthenticatedUser(res.data));
+        setUser(res.data);
+        console.log(user);
+        
       } catch (error) {
         // si no hay Cookie por caducidacion, login con error,set null   
         setUser(null);
