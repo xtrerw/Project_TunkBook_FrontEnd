@@ -94,22 +94,32 @@ const PerfilReader = () => {
       {/* Parte derecha */}
       <div className="profile-content">
         {selectedTab === "Mi Tunk" && (
-          <section className="info-section">
-            <h1>Perfil</h1>
-            <div className='info-item'>
-              <span className="info-label">nombre de usuario:</span>
-              <span className="info-value">{user.username}</span>
-            </div>
-            <hr />
-            <div className="info-item">
-              <span className="info-label">Fecha Nacimiento:</span>
-              {/* para guardar la fecha sin horario */}
-              <span className="info-value"> {user.dateBirth?.split("T")[0]}</span>
-            </div>
-            <hr />
-            <div className="info-item">
-              <span className="info-label">Correo Electrónico:</span>
-              <span className="info-value">{user.email}</span>
+          <section className='info-section-edit'>
+              <div >
+                <h1>Sobre mí</h1>
+              </div>
+              <div className="info-section">
+                <h1>Perfil</h1>
+                <div className='info-form-edit'>
+                    <div className='info-item'>
+                      <span className="info-label">nombre de usuario:</span>
+                      <span className="info-value">{user.username}</span>
+                    </div>
+                    <div className='info-btn-change'>
+                      <span> cambiar </span>
+                    </div>
+                </div>
+                <hr />
+                <div className="info-item">
+                  <span className="info-label">Correo Electrónico:</span>
+                  <span className="info-value">{user.email}</span>
+                </div>
+                <hr />
+                <div className="info-item">
+                  <span className="info-label">Fecha Nacimiento:</span>
+                  {/* para guardar la fecha sin horario */}
+                  <span className="info-value"> {user.dateBirth?.split("T")[0]}</span>
+                </div>
             </div>
           </section>
         )}
