@@ -102,15 +102,18 @@
     width: 50%;
     display: flex;
     justify-content: center;
+    gap: 20px;
   }
-  .info-section {
-    width: 50%;
+  .info-desc,.info-section {
     height: fit-content;
     border-radius: 20px;
     border: 1px solid var(--color-border-default);
     padding: 10px 20px;    
   }
-  .info-section h1{
+  .info-section{
+    width: 50%;
+  }
+  .info-desc h1,.info-section h1{
     margin-bottom: 1.5rem;
     font-weight: 900;
   }
@@ -135,13 +138,21 @@
 
     font-weight: bold;
   }
-  .info-btn-change{
+  .info-btn-desc,.info-btn-change{
+    cursor: pointer;
     display: flex;
     align-items: center;
     text-align: center;
     border: 1px solid var(--color-border-default);
     border-radius: 20px;
     padding: 10px 20px;
+  }
+  .info-btn-desc:hover,.info-btn-change:hover{
+    background: var(--bg-color-default5);
+  }
+  .info-btn-desc{
+    margin: 10px 15px;
+    font-weight: bold;
   }
   .info-label {
     font-size: 12px;

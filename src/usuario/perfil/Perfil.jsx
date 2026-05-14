@@ -38,7 +38,7 @@ const PerfilReader = () => {
   .catch((err) => console.error("Error al obtener info del usuario", err));
 }, [loadingUser, user]);
 
-  // actualizar los datos del usuario
+  // UPDATE los datos del usuario
   const fetchUserData = () => {
     const userId=user.id;
     if (userId) {
@@ -48,6 +48,18 @@ const PerfilReader = () => {
         .catch(error => console.error("Error al obtener los datos:", error));
     }
   };
+  //LOGOUT 
+  const logout=async()=>{
+    try{
+      await axios.post(`${apiUrl}/logout`, null, {
+        withCredentials: true
+      })
+      setUser(null);
+      navigate("/")
+    }catch(e){
+      console.error(e)
+    }
+  }
   //
   if (!user) {
     return <Login />;
@@ -81,22 +93,25 @@ const PerfilReader = () => {
           Favoritos
         </h2>
         <h2
-              className="logout"
-              onClick={() => {
-                setUser(null);
-                navigate("/"); // Redirigir a la página de inicio
-              }}
-            >
-            Cerrar Sesión
-            </h2>
+          className="logout"
+          onClick={logout}
+        >
+          Cerrar Sesión
+        </h2>
       </div>
 
       {/* Parte derecha */}
       <div className="profile-content">
         {selectedTab === "Mi Tunk" && (
           <section className='info-section-edit'>
-              <div >
-                <h1>Sobre mí</h1>
+              <div className='info-desc'>
+                <h1>Descripción</h1>
+                <div>
+                  <span className="info-label">Para que los demás te conozcan mejor</span>
+                  <div className='info-btn-desc'>
+                    <span>agregar descripción</span>
+                  </div>
+                </div>
               </div>
               <div className="info-section">
                 <h1>Perfil</h1>
