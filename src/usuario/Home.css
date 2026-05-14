@@ -41,6 +41,7 @@
     --bg-color-main6:#646cff8f;
     --bg-color-main7:#216ba5;
     --bg-color-main8:#f6d2c4;
+    --bg-color-main9:#cbe4f7a1;
 
     --text-color:rgba(255,215,0);
     --text-color2:rgb(101, 98, 0);
@@ -76,12 +77,17 @@
     --bg-color-gradient3: rgb(255, 217, 4);
     /* star */
     --color-star:#facc15;
+    /* logout */
+    --color-bg-logout:#fd5050;
   }
   
   h1,h2,h3,p{
     margin: 0;
   }
-  
+  hr{
+    border-color: var(--color-border-default);
+    background: var(--color-border-default);
+  }
   *,#root,body{
     margin: 0;
     padding: 0;

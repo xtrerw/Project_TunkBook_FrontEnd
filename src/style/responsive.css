@@ -86,12 +86,9 @@
    .form-registro>.password-input-container>.bx {
       top: 30%;
    }
-   /* mis datos */
+   /* perfil */
    /* main */
-   .profile-container{
-      max-height: none !important;
-      max-width: 800px !important;
-   }
+
    /* editar-informacion */
    /* main */
    .profile-content{

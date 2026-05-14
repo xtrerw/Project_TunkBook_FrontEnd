@@ -59,7 +59,7 @@ const MisFavoritos = () => {
     
     return (
     <div>
-        <h2>Mis Libros Favoritos</h2>
+        <h2>Mis Favoritos</h2>
         <div className={favoritos.length > 0 ? 'favoritos-lista' : 'no-favoritos'}>
         {
             favoritos.length==0? (

@@ -54,106 +54,90 @@ const PerfilReader = () => {
   }
   return (
     <div className="profile-container">
-          {/* Parte izquierda */}
-          <aside className="profile-sidebar">
-            <h2 
-              className={selectedTab === "Mi Tunk" ? "active-tab" : ""}
-              onClick={() => setSelectedTab("Mi Tunk")}
-            >
-              Mi Tunk
-            </h2>
-            <h2 
-              className={selectedTab === "Dirección" ? "active-tab" : ""}
-              onClick={() => setSelectedTab("Dirección")}
-            >
-              Dirección
-            </h2>
-            <h2
-              className={selectedTab === "Mis Favoritos" ? "active-tab" : ""}
-              onClick={() => setSelectedTab("Mis Favoritos")}
-            >
-              Mis Favoritos
-            </h2>
-            <h2 
-              className={selectedTab === "Editar Información" ? "active-tab" : ""}
-              onClick={() => setSelectedTab("Editar Información")}
-            >
-              Editar Información
-            </h2>
-            <h2 
-              className={selectedTab === "Cambiar Contraseña" ? "active-tab" : ""}
-              onClick={() => setSelectedTab("Cambiar Contraseña")}
-            >
-              Cambiar Contraseña
-            </h2>
-            <h2
+      {/* titulo */}
+      <div className='profile-header'>
+        <img src={`${apiUrl}${user.imgPerfil}`} alt="" />
+        <h1 className="info-value">hola {user.username} 😁</h1>
+      </div>
+      
+      {/* Header de informacion */}
+      <div className="profile-navbar">
+        <h2 
+          className={selectedTab === "Mi Tunk" ? "active-tab" : ""}
+          onClick={() => setSelectedTab("Mi Tunk")}
+        >
+          Mi Tunk
+        </h2>
+        <h2 
+          className={selectedTab === "Dirección" ? "active-tab" : ""}
+          onClick={() => setSelectedTab("Dirección")}
+        >
+          Dirección
+        </h2>
+        <h2
+          className={selectedTab === "Favoritos" ? "active-tab" : ""}
+          onClick={() => setSelectedTab("Favoritos")}
+        >
+          Favoritos
+        </h2>
+        <h2
               className="logout"
               onClick={() => {
                 setUser(null);
                 navigate("/"); // Redirigir a la página de inicio
               }}
             >
-              Cerrar Sesión
+            Cerrar Sesión
             </h2>
-          </aside>
+      </div>
 
-          {/* Parte derecha */}
-          <div className="profile-content">
+      {/* Parte derecha */}
+      <div className="profile-content">
+        {selectedTab === "Mi Tunk" && (
+          <section className="info-section">
+            <h1>Perfil</h1>
+            <div className='info-item'>
+              <span className="info-label">nombre de usuario:</span>
+              <span className="info-value">{user.username}</span>
+            </div>
+            <hr />
+            <div className="info-item">
+              <span className="info-label">Fecha Nacimiento:</span>
+              {/* para guardar la fecha sin horario */}
+              <span className="info-value"> {user.dateBirth?.split("T")[0]}</span>
+            </div>
+            <hr />
+            <div className="info-item">
+              <span className="info-label">Correo Electrónico:</span>
+              <span className="info-value">{user.email}</span>
+            </div>
+          </section>
+        )}
 
-            {selectedTab === "Mi Tunk" && (
-              <section className="info-section">
-                <div>
-                  <img src={`http://localhost:8080${user.imgPerfil}`} alt="" />
-                </div>
-                <h1>Información Personal</h1>
-                <div className="info-item">
-                  <span className="info-label">Nombre:</span>
-                  <span className="info-value">{user.username}</span>
-                </div>
-                <div className="info-item">
-                  <span className="info-label">La Fecha Nacimiento:</span>
-                  {/* para guardar la fecha sin horario */}
-                  <span className="info-value"> {user.dateBirth?.split("T")[0]}</span>
-                </div>
-                <div className="info-item">
-                  <span className="info-label">Correo Electrónico:</span>
-                  <span className="info-value">{user.email}</span>
-                </div>
-              </section>
-            )}
-
-            {selectedTab === "Dirección" && (
-              <section className="info-section">
-                <h1>Dirección</h1>
-                <div className="info-item">
-                  <span className="info-label">País:</span>
-                  <span className="info-value">{user.pais || "No especificado"}</span>
-                </div>
-                <div className="info-item">
-                  <span className="info-label">Provincia:</span>
-                  <span className="info-value">{user.provincia || "No especificado"}</span>
-                </div>
-                <div className="info-item">
-                  <span className="info-label">Dirección:</span>
-                  <span className="info-value">{user.direccion || "No especificado"}</span>
-                </div>
-                <div className="info-item">
-                  <span className="info-label">Código Postal:</span>
-                  <span className="info-value">{user.codigoPostal || "No especificado"}</span>
-                </div>
-              </section>
-            )}
-
-            {selectedTab === "Editar Información" && <EditarInformacion
-              onSuccess={() => {
-                fetchUserData(); // Actualizar los datos del usuario
-                setSelectedTab("Mi Tunk");//pasar a la pestaña de "Mi Tunk"
-              }}
-            />}
-            {selectedTab === "Mis Favoritos" && <MisFavoritos/>}
-            {selectedTab === "Cambiar Contraseña" && <CambiarContrasena />}
-          </div>
-        </div>
+        {selectedTab === "Dirección" && (
+          <section className="info-section">
+            <h1>Dirección</h1>
+            <div className="info-item">
+              <span className="info-label">País:</span>
+              <span className="info-value">{user.pais || "No especificado"}</span>
+            </div>
+            <div className="info-item">
+              <span className="info-label">Provincia:</span>
+              <span className="info-value">{user.provincia || "No especificado"}</span>
+            </div>
+            <div className="info-item">
+              <span className="info-label">Dirección:</span>
+              <span className="info-value">{user.direccion || "No especificado"}</span>
+            </div>
+            <div className="info-item">
+              <span className="info-label">Código Postal:</span>
+              <span className="info-value">{user.codigoPostal || "No especificado"}</span>
+            </div>
+          </section>
+        )}
+        {selectedTab === "Favoritos" && <MisFavoritos/>}
+      </div>
+    </div>
   )
 }
 
