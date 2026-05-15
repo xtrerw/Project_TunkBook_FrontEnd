@@ -1,0 +1,16 @@
+.editable-input {
+  min-height: 100px;
+  border: 1px solid var(--color-border-default);
+  border-radius: 8px;
+  padding: 10px;
+  outline: none;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}
+
+/* placeholder 模拟 */
+.editable-input:empty:before {
+  content: attr(data-placeholder);
+  color: #aaa;
+  pointer-events: none;
+}

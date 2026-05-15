@@ -3,6 +3,7 @@ import { Routes, Route, Link, useLocation } from "react-router-dom";
 import { useState,useEffect,useLayoutEffect,useRef } from "react";
 import { useUser } from "../context/UserContext";
 // Importación gsap
+import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import gsap from "gsap";
 // Importación estilos
@@ -22,7 +23,6 @@ import MisVentas from "./autor/MisVentas";
 import HistorialCompras from "./autor/HistorialCompras";
 import Perfil from "./perfil/Perfil";
 import NotFound from "./NotFound";
-import { useGSAP } from "@gsap/react";
 
 
 

@@ -3,13 +3,16 @@ import React from 'react'
 import { useState,useEffect } from 'react'
 import { useUser } from '../../context/UserContext';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 //css
 import './Perfil.css'
+//componentes
 import Login from '../Login'
 import CambiarContrasena from '../autor/CambiarContrasena';
 import EditarInformacion from './EditarInformacion';
 import MisFavoritos from './MisFavoritos';
-import axios from 'axios';
+import EditableInput from '../../componentes/EditableInput';
+
 const PerfilReader = () => {
     //hasta top en caso clic
     useEffect(() => {
@@ -19,6 +22,8 @@ const PerfilReader = () => {
   const navigate = useNavigate();
   // seleccionar la pestaña activa
   const [selectedTab, setSelectedTab] = useState("Mi Tunk");
+  //btn descripcion
+  const [isAddDescp,addDescp]=useState(false)
   //conseguir los datos de usuario
   const {user, setUser, loadingUser}=useUser();
   //
@@ -106,12 +111,21 @@ const PerfilReader = () => {
           <section className='info-section-edit'>
               <div className='info-desc'>
                 <h1>Descripción</h1>
+                {isAddDescp==false?(
                 <div>
                   <span className="info-label">Para que los demás te conozcan mejor</span>
-                  <div className='info-btn-desc'>
+                  <div className='info-btn-desc' onClick={()=>addDescp(!isAddDescp)}>
                     <span>agregar descripción</span>
                   </div>
                 </div>
+                ):(
+                  <div>
+                    <EditableInput/>
+                    <div className='info-btn-desc' onClick={()=>addDescp(!isAddDescp)}>
+                      <span>Confirma</span>
+                    </div>
+                  </div>
+                )}
               </div>
               <div className="info-section">
                 <h1>Perfil</h1>
