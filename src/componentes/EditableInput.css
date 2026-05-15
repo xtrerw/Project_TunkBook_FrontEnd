@@ -1,6 +1,11 @@
+.editable-wrapper {
+  position: relative;
+  width: 100%;
+}
+
 .editable-input {
   min-height: 100px;
-  border: 1px solid var(--color-border-default);
+  border: 1px solid #ccc;
   border-radius: 8px;
   padding: 10px;
   outline: none;
@@ -8,9 +13,32 @@
   overflow-wrap: break-word;
 }
 
-/* placeholder 模拟 */
 .editable-input:empty:before {
   content: attr(data-placeholder);
   color: #aaa;
   pointer-events: none;
+}
+
+.autocomplete-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  list-style: none;
+  margin: 4px 0 0;
+  padding: 4px;
+  width: max-content;
+  z-index: 100;
+}
+
+.autocomplete-list li {
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+.autocomplete-list li:hover,
+.autocomplete-list li.selected {
+  background: #f0f0f0;
 }
