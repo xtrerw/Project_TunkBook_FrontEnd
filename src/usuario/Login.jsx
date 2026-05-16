@@ -66,7 +66,7 @@ function Login() {
             // token 不再保存在 localStorage，避免 XSS 时被前端 JS 直接读取。
             // 正确做法是让后端在登录成功后通过 Set-Cookie 写入 HttpOnly Cookie。
             const res = await axios.post(`${apiUrl}/login`, {
-                username: loginInfo.username,
+                email: loginInfo.email,
                 password
             }, {
                 // 允许浏览器接收后端设置的 Cookie，并在之后请求时自动携带 Cookie。
@@ -170,9 +170,9 @@ function Login() {
                         <form onSubmit={handleIniciar}>
                             <h2>Iniciar Sesión</h2>
                             {/* campo de la información de autor */}
-                            <label htmlFor="username">
-                                Usuario
-                                <input className={loginError? "error-input" : ""} type="text" name='username' placeholder='Username' value={loginInfo.username} onChange={handeleChangeLogin}
+                            <label htmlFor="e-mail">
+                                e-mail
+                                <input className={loginError? "error-input" : ""} type="text" name='email' placeholder='E-Mail' value={loginInfo.email} onChange={handeleChangeLogin}
                                  required />
                             </label>
                             {/* campo de la contraseña */}

@@ -1,6 +1,7 @@
 .form-iniciar{
     display: flex;
     justify-self: center;
+    text-transform: uppercase;
 }
 
 .form-iniciar button{
