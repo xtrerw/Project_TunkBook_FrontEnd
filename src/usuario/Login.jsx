@@ -55,7 +55,7 @@ function Login() {
         setLoginError(null);
       }
 
-    //Función para iniciar sesión
+    //Función para LOGIN
     const handleIniciar = async (e) => {
         e.preventDefault();
         setLoginError(null);

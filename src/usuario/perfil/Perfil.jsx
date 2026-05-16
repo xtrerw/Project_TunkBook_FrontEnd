@@ -18,20 +18,18 @@ const PerfilReader = () => {
     useEffect(() => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }, []);
+  //conseguir los datos de usuario
+  const {user, setUser, loadingUser}=useUser();
   //funcion de navegacion
   const navigate = useNavigate();
   // seleccionar la pestaña activa
   const [selectedTab, setSelectedTab] = useState("Mi Tunk");
-  //btn descripcion
-  const [isAddDescp,addDescp]=useState(false)
-  //conseguir los datos de usuario
-  const {user, setUser, loadingUser}=useUser();
   //
   const apiUrl=import.meta.env.VITE_API_URL;
   useEffect(()=>{
     console.log("infor user",user);
   },[user])
-  //muestrar informacion
+  //======================= Muestrar informacion ======================
  useEffect(() => {
   if (loadingUser || (user && user.email&&user.dateBirth)) return; // 
   //send cookie a Backend
@@ -43,14 +41,32 @@ const PerfilReader = () => {
   .catch((err) => console.error("Error al obtener info del usuario", err));
 }, [loadingUser, user]);
 
-  // UPDATE los datos del usuario
-  const fetchUserData = () => {
-    const userId=user.id;
-    if (userId) {
-      fetch(`${apiUrl}users/${userId}/update`)
-        .then(response => response.json())
-        .then(data => setUser(data))
-        .catch(error => console.error("Error al obtener los datos:", error));
+  //================== UPDATE los datos del usuario ===============
+  //btn change info
+  const [editState,setEditState]=useState({
+    changeDescp:false,
+    changeUsername:false
+  })
+  //datos de form de change info
+  const [datoInfo,setDatoInfo]=useState({
+      descp:null,
+      username:null,
+    })
+  useEffect(()=>{  
+    if (user) {
+      setDatoInfo({
+        descp:user.description || "",
+        username:user.username || "",
+      }) 
+    }
+  },[user])
+  const updateUsuario = () => {
+    if (user) {
+      axios.put(`${apiUrl}/users/update`,{
+        withCredentials:true
+      })
+      .then((res)=>console.log(res))
+      .catch((error)=>("Error al actualizar info de user"))
     }
   };
   //LOGOUT 
@@ -111,18 +127,33 @@ const PerfilReader = () => {
           <section className='info-section-edit'>
               <div className='info-desc'>
                 <h1>Descripción</h1>
-                {isAddDescp==false?(
+                {!editState.changeDescp?(
                 <div>
                   <span className="info-label">Para que los demás te conozcan mejor</span>
-                  <div className='info-btn-desc' onClick={()=>addDescp(!isAddDescp)}>
+                  <div className='info-btn-desc' 
+                  onClick={()=>setEditState({
+                    // btn de just change descp
+                    ...editState,
+                    changeDescp:!editState.changeDescp
+                  })}>
                     <span>agregar descripción</span>
                   </div>
                 </div>
                 ):(
                   <div>
-                    <EditableInput/>
-                    <div className='info-btn-desc' onClick={()=>addDescp(!isAddDescp)}>
-                      <span>Confirma</span>
+                    <EditableInput
+                    value={datoInfo.descp}
+                    onChange={(value)=>setDatoInfo({
+                      ...datoInfo,
+                      descp:value
+                    })}
+                    />
+                    <div className='info-btn-desc' onClick={()=>setEditState({
+                      // btn de just change description
+                      ...editState,
+                      changeDescp:!editState.changeDescp
+                    })}>
+                      <span onClick={updateUsuario}>Confirma</span>
                     </div>
                   </div>
                 )}
@@ -132,9 +163,24 @@ const PerfilReader = () => {
                 <div className='info-form-edit'>
                     <div className='info-item'>
                       <span className="info-label">nombre de usuario:</span>
-                      <span className="info-value">{user.username}</span>
+                      
+                      {!editState.changeUsername?(
+                        <span className="info-value">{user.username}</span>
+                      ):(<input className="info-value"  
+                      value={datoInfo.username}
+                      onChange={(value)=>{
+                        setDatoInfo({
+                          ...datoInfo,
+                          username:value
+                        })
+                      }}
+                      />)}
                     </div>
-                    <div className='info-btn-change'>
+                    <div className='info-btn-change' 
+                    onClick={()=>setEditState({
+                      ...editState,
+                      changeUsername:!editState.changeUsername
+                    })}>
                       <span> cambiar </span>
                     </div>
                 </div>
