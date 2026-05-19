@@ -141,8 +141,8 @@ if (loadingUser || !user) {
                 {!editState.changeDescp?(
                 <div>
                   <span className="info-label">
-                    {!user.description?.trim()
-                    ? "Para que los demás te conozcan mejor"
+                    {!user.description?.trim()? 
+                    "Para que los demás te conozcan mejor"
                     : user.description}
                   </span>
                   <div className='info-btn-desc' 
@@ -163,7 +163,15 @@ if (loadingUser || !user) {
                       descp:value
                     })}
                     />
-                    <div className='info-btn-desc' onClick={()=>
+                    <button className='info-btn-desc cancel'
+                    onClick={()=>setEditState({
+                    // btn de cancelar
+                    ...editState,
+                    changeDescp:editState.changeDescp=false
+                  })}
+                    >Cancelar</button>
+                    <button className='info-btn-desc' 
+                    onClick={()=>
                     {
                       // ya pulsa btn de changeDescp
                       if(editState.changeDescp){
@@ -171,13 +179,13 @@ if (loadingUser || !user) {
                       }
                       
                       setEditState({
-                      // btn de just change description
-                      ...editState,
-                      changeDescp:!editState.changeDescp
-                    })
+                        // btn de just change description
+                        ...editState,
+                        changeDescp:!editState.changeDescp
+                      })
                     }}>
                       <span>Confirma</span>
-                    </div>
+                    </button>
                   </div>
                 )}
               </div>

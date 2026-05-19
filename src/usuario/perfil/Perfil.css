@@ -75,14 +75,14 @@
     color: var(--color-text-default);
   }
   /* boton de log out */
-  .profile-navbar .logout{
+  .profile-navbar .logout,.cancel{
     cursor: pointer;
     border-radius: 100px;
     background: var(--color-bg-logout);
     color: var(--color-text-default);
   }
   /* boton de log out hover */
-  .profile-navbar .logout:hover {
+  .profile-navbar .logout:hover,.cancel:hover {
     background: var(--color-error-text);
     color: var(--color-texto-footer3);
   }
@@ -159,9 +159,12 @@
     font-weight: normal;
     color: var(--color-text-default2);
   }
-  
+  .info-label:first-child{
+    text-transform: none;
+  }
   /* valor de información */
   .info-value {
+    text-transform: none;
     font-weight: bold;
   }
   
