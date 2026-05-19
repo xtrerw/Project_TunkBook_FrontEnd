@@ -82,8 +82,9 @@ const PerfilReader = () => {
     }
   }
   //
-if (!loadingUser && !user) {
-  navigate("/login");
+// evitar 报错 cuando recarga navegador
+if (loadingUser || !user) {
+  return <div>Cargando...</div>;
 }
   return (
     <div className="profile-container">
