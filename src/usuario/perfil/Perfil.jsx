@@ -26,9 +26,6 @@ const PerfilReader = () => {
   const [selectedTab, setSelectedTab] = useState("Mi Tunk");
   //
   const apiUrl=import.meta.env.VITE_API_URL;
-  useEffect(()=>{
-    console.log("infor user",user);
-  },[user])
   //======================= Muestrar informacion ======================
  useEffect(() => {
   if (loadingUser || (user && user.email&&user.dateBirth)) return; // 
@@ -39,7 +36,7 @@ const PerfilReader = () => {
   //get infor de user
   .then((res) => setUser(res.data.data))
   .catch((err) => console.error("Error al obtener info del usuario", err));
-}, [loadingUser, user]);
+}, [loadingUser,user]);
 
   //================== UPDATE los datos del usuario ===============
   //btn change info
@@ -62,10 +59,13 @@ const PerfilReader = () => {
   },[user])
   const updateUsuario = () => {
     if (user) {
-      axios.put(`${apiUrl}/users/update`,{
+      axios.put(`${apiUrl}/users/info/update`,{
+        username:datoInfo.username,
+        description:datoInfo.descp
+      },{
         withCredentials:true
       })
-      .then((res)=>console.log(res))
+      .then((res)=>console.log(res.data.msg))
       .catch((error)=>("Error al actualizar info de user"))
     }
   };
@@ -82,9 +82,9 @@ const PerfilReader = () => {
     }
   }
   //
-  if (!user) {
-    return <Login />;
-  }
+if (!loadingUser && !user) {
+  navigate("/login");
+}
   return (
     <div className="profile-container">
       {/* titulo */}
@@ -148,12 +148,15 @@ const PerfilReader = () => {
                       descp:value
                     })}
                     />
-                    <div className='info-btn-desc' onClick={()=>setEditState({
+                    <div className='info-btn-desc' onClick={()=>
+                    {setEditState({
                       // btn de just change description
                       ...editState,
                       changeDescp:!editState.changeDescp
-                    })}>
-                      <span onClick={updateUsuario}>Confirma</span>
+                    })
+                    // updateUsuario()
+                    }}>
+                      <span>Confirma</span>
                     </div>
                   </div>
                 )}
@@ -168,19 +171,22 @@ const PerfilReader = () => {
                         <span className="info-value">{user.username}</span>
                       ):(<input className="info-value"  
                       value={datoInfo.username}
-                      onChange={(value)=>{
+                      onChange={(e)=>{
                         setDatoInfo({
                           ...datoInfo,
-                          username:value
+                          username:e.target.value
                         })
                       }}
                       />)}
                     </div>
                     <div className='info-btn-change' 
-                    onClick={()=>setEditState({
+                    onClick={()=>{
+                      setEditState({
                       ...editState,
                       changeUsername:!editState.changeUsername
-                    })}>
+                    })
+                    // updateUsuario()
+                    }}>
                       <span> cambiar </span>
                     </div>
                 </div>
