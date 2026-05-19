@@ -28,7 +28,6 @@ const EditableInput = ({
         data-placeholder={placeholder}
         suppressContentEditableWarning={true}
       >
-        {value}
       </div>
     </div>
   );

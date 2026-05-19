@@ -65,7 +65,17 @@ const PerfilReader = () => {
       },{
         withCredentials:true
       })
-      .then((res)=>console.log(res.data.msg))
+      .then((res)=>{
+        console.log(res.data.msg)
+        //mostrar info en update
+        setUser(prev => ({
+          ...prev,
+          username:datoInfo.username,
+          description:datoInfo.descp
+        }))
+      }
+        
+    )
       .catch((error)=>("Error al actualizar info de user"))
     }
   };
@@ -130,7 +140,11 @@ if (loadingUser || !user) {
                 <h1>Descripción</h1>
                 {!editState.changeDescp?(
                 <div>
-                  <span className="info-label">Para que los demás te conozcan mejor</span>
+                  <span className="info-label">
+                    {!user.description?.trim()
+                    ? "Para que los demás te conozcan mejor"
+                    : user.description}
+                  </span>
                   <div className='info-btn-desc' 
                   onClick={()=>setEditState({
                     // btn de just change descp
@@ -150,12 +164,17 @@ if (loadingUser || !user) {
                     })}
                     />
                     <div className='info-btn-desc' onClick={()=>
-                    {setEditState({
+                    {
+                      // ya pulsa btn de changeDescp
+                      if(editState.changeDescp){
+                          updateUsuario()
+                      }
+                      
+                      setEditState({
                       // btn de just change description
                       ...editState,
                       changeDescp:!editState.changeDescp
                     })
-                    // updateUsuario()
                     }}>
                       <span>Confirma</span>
                     </div>
@@ -182,11 +201,13 @@ if (loadingUser || !user) {
                     </div>
                     <div className='info-btn-change' 
                     onClick={()=>{
+                    if(editState.changeUsername){
+                          updateUsuario()
+                    }
                       setEditState({
                       ...editState,
                       changeUsername:!editState.changeUsername
                     })
-                    // updateUsuario()
                     }}>
                       <span> cambiar </span>
                     </div>
